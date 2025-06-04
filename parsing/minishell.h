@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/05/24 19:59:12 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/06/02 23:59:50 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ enum	token_type
 	DBL_QUOTES
 };
 
+typedef	struct	s_lexer
+{
+	int		error_flag;
+	char	*str;
+	int		i;
+}	t_lexer;
+
 typedef struct	s_token
 {
 	char				*value;
@@ -49,14 +56,24 @@ typedef struct	s_token
 	struct s_token		*prev;
 }	t_token;
 
-typedef	struct	s_lexer
+typedef struct	s_redir
 {
-	int		error_flag;
-	char	*str;
-	int		i;
-}	t_lexer;
+	int				type;
+	char			*file;
+	struct s_redir	*next;
+}	t_redir;
 
-void	free_all(t_lexer *l, t_token *t);
+typedef struct s_commands
+{
+	int						num_redirections;
+	char					**args;
+	t_redir					*redirections;
+	char					*file_name;
+	struct s_commands	*next;
+	struct s_commands	*prev;
+}	t_commands;
+
+void	free_all(char *str, t_token *t);
 void	add_token(t_token **head,char *str, enum token_type class);
 void	print_token(t_token **head);
 void	free_token(t_token **head);
@@ -65,10 +82,17 @@ void	initialise_lexer(char *str, t_lexer **l, t_token **tokens);
 t_token	*last_token(t_token **head);
 void	tokenize_next(t_token **t, t_lexer *l);
 int		end_quotes(t_lexer *l, int e);
-void	tokenize_quotes(t_token **t, t_lexer *l, int e);
-void	tokenize_pipe(t_token **t, t_lexer *l, int e);
-void	tokenize_word(t_token **t, t_lexer *l, int e);
-void	tokenize_append_heredoc(t_token **t, t_lexer *l, int type);
+void	tokenize_quotes(t_token **t, t_lexer *l, int type);
+void	tokenize_pipe(t_token **t, t_lexer *l, int type);
+void	tokenize_word(t_token **t, t_lexer *l, int type);
+void	tokenize_append(t_token **t, t_lexer *l, int type);
+void	tokenize_heredoc(t_token **t, t_lexer *l, int type);
 void	tokenize_redir(t_token **t, t_lexer *l, int type);
+int		check_syntax(t_token *tokens);
+// void	check_start(t_lexer *l, t_token *t);
+int		check_redir(t_token *t);
+void	add_command(t_commands **head, t_commands *new);
+void	add_redirection(t_commands **cmd, t_token *token);
+void	add_word(t_commands **cmd, char *str, int len);
 
 #endif

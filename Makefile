@@ -5,6 +5,7 @@ parsing/tokenize.c \
 parsing/utils_token.c \
 parsing/free.c \
 parsing/handle_error.c \
+parsing/parser.c \
 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell

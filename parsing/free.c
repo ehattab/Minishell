@@ -6,19 +6,16 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:25:35 by ehattab           #+#    #+#             */
-/*   Updated: 2025/05/24 19:25:47 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/05/30 18:37:41 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all(t_lexer *l, t_token *t)
+void	free_all(char *str, t_token *t)
 {
-	if (l)
-	{
-		free(l->str);
-		free(l);
-	}
+	if (str)
+		free(str);
 	if (t)
 		free_token(&t);
 }
