@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:01:46 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/03 01:43:43 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/06/14 18:38:58 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_commands	*parser(t_token *input_tokens)
 	t_token		*tmp;
 	t_commands	*cmds;
 	int			nb_word;
-	int i = 0;
+	int			i = 0;
+	int			flag_word = 0;
 
 	nb_word = 0;
 	cmds = NULL;
@@ -28,42 +29,26 @@ t_commands	*parser(t_token *input_tokens)
 		t_commands	*new;
 		new = malloc(sizeof(t_commands));
 		new->args = NULL;
-		new->file_name = NULL;
-		new->num_redirections = NULL;
+		new->num_redirections = 0;
 		new->redirections = NULL;
 		new->next = NULL;
 		new->prev = NULL;
 		while (tokens && tokens->type != PIPE)
 		{
-			if (tokens->type == WORD)
-			{
-				tmp = tokens;
-				while (tmp && tmp->type != REDIR_IN
-				&& tmp->type != REDIR_OUT && tmp->type != REDIR_APPEND
-				&& tmp->type != HEREDOC && tmp->type != PIPE)
-				{
-					if (tmp->type == WORD)
-						nb_word++;
-					tmp = tmp->next;
-				}
-				new->args = malloc(sizeof(char *) * (nb_word + 1));
-				i = 0;
-				while (i <= nb_word)
-				{
-					new->args[i] = NULL;
-					i++;
-				}
-				add_word(&new, tokens->value);
-			}
-			else if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
+			if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
 			|| tokens->type == REDIR_APPEND || tokens->type == HEREDOC)
 			{
 				add_redirection(&new, tokens);
 				if (tokens->next->type == WORD)
 					tokens = tokens->next;
 			}
+			else if (tokens->type == WORD)
+			{
+				cmds->args = add_word(cmds->args, tokens->value);
+			}
 			tokens = tokens->next;
 		}
+		flag_word = 0;
 		nb_word = 0;
 		add_command(&cmds, new);
 		if (tokens && tokens->type == PIPE)
@@ -72,21 +57,8 @@ t_commands	*parser(t_token *input_tokens)
 	return (cmds);
 }
 
-void	add_word(t_commands **cmd, char *str)
-{
-	int	i;
-
-	i = 0;
-	while ((*cmd)->args[i])
-		i++;
-	(*cmd)->args[i] = ft_strdup(str);
-	(*cmd)->args[i + 1] = NULL;
-}
-
 void	add_redirection(t_commands **cmd, t_token *token)
 {
-	(*cmd)->redirections->type = token->type;
-	(*cmd)->redirections->file = token->next->value;
 }
 
 void	add_command(t_commands **head, t_commands *new)
@@ -104,4 +76,31 @@ void	add_command(t_commands **head, t_commands *new)
 		tmp = tmp->next;
 	new->prev = tmp;
 	tmp->next = new;
+}
+
+char	**add_word(char **array, char *str)
+{
+	int		i;
+	char	**new_array;
+
+	i = 0;
+	while (array[i])
+		i++;
+	new_array = malloc(sizeof(char *) * i + 2);
+	if (!new_array)
+		return (NULL);
+	i = 0;
+	while (array[i])
+	{
+		new_array[i] = ft_strdup(array[i]);
+		i++;
+	}
+	new_array[i] = ft_strdup(str);
+	new_array[i + 1] = NULL;
+	if (!array)
+	{
+		new_array[0] = ft_strdup(str);
+		new_array[1] = NULL;
+	}
+	return (new_array);
 }

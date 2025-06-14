@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/02 23:59:50 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/06/14 18:37:00 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ typedef	struct	s_lexer
 
 typedef struct	s_token
 {
-	char				*value;
-	enum token_type		type;
-	struct s_token		*next;
-	struct s_token		*prev;
+	char			*value;
+	enum token_type	type;
+	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
 
 typedef struct	s_redir
@@ -65,10 +65,9 @@ typedef struct	s_redir
 
 typedef struct s_commands
 {
-	int						num_redirections;
-	char					**args;
-	t_redir					*redirections;
-	char					*file_name;
+	int					num_redirections;
+	char				**args;
+	t_redir				*redirections;
 	struct s_commands	*next;
 	struct s_commands	*prev;
 }	t_commands;
@@ -93,6 +92,6 @@ int		check_syntax(t_token *tokens);
 int		check_redir(t_token *t);
 void	add_command(t_commands **head, t_commands *new);
 void	add_redirection(t_commands **cmd, t_token *token);
-void	add_word(t_commands **cmd, char *str, int len);
+char	**add_word(char **array, char *str);
 
 #endif
