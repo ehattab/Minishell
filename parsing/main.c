@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/01 15:44:43 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/06/16 17:23:50 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int	main(int ac, char **av)
 {
 	char		*str;
 	t_token		*tokens;
-	// t_commands	*cmds;
+	t_commands	*cmds;
 	int			error_num;
 
+	error_num = 0;
 	if (ac != 1)
 	{
 		ft_putendl_fd("This program does not take any arguments", 2);
@@ -26,7 +27,7 @@ int	main(int ac, char **av)
 	}
 	(void) ac;
 	(void) av;
-	// cmds = NULL;
+	cmds = NULL;
 	while (1)
 	{
 		str = readline("Minishell :");
@@ -37,15 +38,15 @@ int	main(int ac, char **av)
 		}
 		add_history(str);
 		tokens = lexer(str);
-		error_num = check_syntax(tokens);
+		// error_num = check_syntax(tokens);
 		if (!error_num)
 		{
-			if (tokens != NULL)
-				print_token(&tokens);
-			// cmds = parser(tokens);
+			cmds = parser(tokens);
+			if (cmds != NULL)
+				print_cmds(&cmds);
 		}
 		else
 			error_num = 0;
-		free_all(str, tokens);
+		free_all(str, tokens, cmds);
 	}
 }

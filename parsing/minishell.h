@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/14 18:37:00 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/06/16 16:45:20 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,26 +72,31 @@ typedef struct s_commands
 	struct s_commands	*prev;
 }	t_commands;
 
-void	free_all(char *str, t_token *t);
-void	add_token(t_token **head,char *str, enum token_type class);
-void	print_token(t_token **head);
-void	free_token(t_token **head);
-t_token	*lexer(char *str);
-void	initialise_lexer(char *str, t_lexer **l, t_token **tokens);
-t_token	*last_token(t_token **head);
-void	tokenize_next(t_token **t, t_lexer *l);
-int		end_quotes(t_lexer *l, int e);
-void	tokenize_quotes(t_token **t, t_lexer *l, int type);
-void	tokenize_pipe(t_token **t, t_lexer *l, int type);
-void	tokenize_word(t_token **t, t_lexer *l, int type);
-void	tokenize_append(t_token **t, t_lexer *l, int type);
-void	tokenize_heredoc(t_token **t, t_lexer *l, int type);
-void	tokenize_redir(t_token **t, t_lexer *l, int type);
-int		check_syntax(t_token *tokens);
-// void	check_start(t_lexer *l, t_token *t);
-int		check_redir(t_token *t);
-void	add_command(t_commands **head, t_commands *new);
-void	add_redirection(t_commands **cmd, t_token *token);
-char	**add_word(char **array, char *str);
+void		free_all(char *str, t_token *t, t_commands *commands);
+void		add_token(t_token **head,char *str, enum token_type class);
+void		print_token(t_token **head);
+void		free_token(t_token **head);
+t_token		*lexer(char *str);
+void		initialise_lexer(char *str, t_lexer **l, t_token **tokens);
+t_token		*last_token(t_token **head);
+void		tokenize_next(t_token **t, t_lexer *l);
+int			end_quotes(t_lexer *l, int e);
+void		tokenize_quotes(t_token **t, t_lexer *l, int type);
+void		tokenize_pipe(t_token **t, t_lexer *l, int type);
+void		tokenize_word(t_token **t, t_lexer *l, int type);
+void		tokenize_append(t_token **t, t_lexer *l, int type);
+void		tokenize_heredoc(t_token **t, t_lexer *l, int type);
+void		tokenize_redir(t_token **t, t_lexer *l, int type);
+int			check_syntax(t_token *tokens);
+// void		check_start(t_lexer *l, t_token *t);
+int			check_redir(t_token *t);
+t_commands	*parser(t_token *input_tokens);
+void		add_command(t_commands **head, t_commands *new);
+void		add_redirection(t_commands **cmd, t_token *token);
+char		**add_word(char **array, char *str);
+void		print_cmds(t_commands **head);
+void		free_cmds(t_commands **head);
+void		free_redirection(t_redir **head);
+void		free_tab(char **tab);
 
 #endif
