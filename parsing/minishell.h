@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/16 16:45:20 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/06/30 18:13:54 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,9 @@ void		print_cmds(t_commands **head);
 void		free_cmds(t_commands **head);
 void		free_redirection(t_redir **head);
 void		free_tab(char **tab);
+
+int			check_n_option(const char *str);
+int			builtin_echo(char **args);
+int			builtin_exec(t_commands *cmd);
 
 #endif

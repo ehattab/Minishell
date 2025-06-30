@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/16 17:23:50 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/06/30 18:22:03 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int ac, char **av)
 			cmds = parser(tokens);
 			if (cmds != NULL)
 				print_cmds(&cmds);
+			builtin_exec(cmds);
 		}
 		else
 			error_num = 0;
