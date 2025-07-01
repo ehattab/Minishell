@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:29:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/01 16:43:20 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:22:57 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	builtin_echo(char **args)
 			ft_printf(" ");
 		i++;
 	}
-	if (!check_n)
-		ft_printf("\n");
+	if (check_n != 1)
+		printf("\n");
 	return (0);
 }
 
