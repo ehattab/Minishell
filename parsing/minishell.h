@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/30 18:13:54 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/01 16:42:43 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ void		free_tab(char **tab);
 int			check_n_option(const char *str);
 int			builtin_echo(char **args);
 int			builtin_exec(t_commands *cmd);
+int			builtin_cd(char **cmd);
+int			builtin_pwd();
 
 #endif
