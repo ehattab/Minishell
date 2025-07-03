@@ -8,6 +8,7 @@ parsing/handle_error.c \
 parsing/parser.c \
 parsing/utils_parser.c \
 exec/builtin.c\
+exec/redirection.c\
 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell

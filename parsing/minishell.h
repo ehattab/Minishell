@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/01 16:42:43 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/03 16:15:10 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <time.h>
+# include <fcntl.h>
 # include <unistd.h>
 
 enum	token_type
@@ -104,5 +105,8 @@ int			builtin_echo(char **args);
 int			builtin_exec(t_commands *cmd);
 int			builtin_cd(char **cmd);
 int			builtin_pwd();
+void		parsing_redir(t_commands *cmd);
+void		handle_redir_in(char *value);
+void		handle_redir_out(char *value);
 
 #endif
