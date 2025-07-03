@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/16 17:23:50 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/03 21:00:20 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int ac, char **av)
 		}
 		add_history(str);
 		tokens = lexer(str);
-		// error_num = check_syntax(tokens);
+		error_num = handle_error(tokens);
 		if (!error_num)
 		{
 			cmds = parser(tokens);
