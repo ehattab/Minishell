@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/03 16:15:10 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/07 16:47:04 by tony             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_commands
 	t_redir				*redirections;
 	struct s_commands	*next;
 	struct s_commands	*prev;
+	char				*path;
 }	t_commands;
 
 void		free_all(char *str, t_token *t, t_commands *commands);
