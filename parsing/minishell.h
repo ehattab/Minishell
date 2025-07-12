@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/03 18:48:34 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/12 19:24:54 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,15 @@ void		tokenize_heredoc(t_token **t, t_lexer *l, int type);
 void		tokenize_redir(t_token **t, t_lexer *l, int type);
 int			handle_error(t_token *tokens);
 int			check_syntax(t_token *tokens);
-int			check_redir(t_token *t);
-int			check_redir_args(t_token *t);
-int			check_redir_dbl(t_token *t);
-int			check_pipe(t_token *t);
-int			simple_return(t_token *t);
+// int			check_redir(t_token *t);
+// int			check_redir_args(t_token *t);
+// int			check_redir_dbl(t_token *t);
+// int			check_pipe(t_token *t);
+// int			simple_return(t_token *t);
+int			check_disallowed_token(t_token *t);
+int	check_redirection_token(t_token *t);
+int	check_pipe_syntax(t_token *t);
+int	print_syntax_error(char *token);
 t_commands	*parser(t_token *input_tokens);
 void		add_command(t_commands **head, t_commands *new);
 void		add_redirection(t_commands **cmd, t_token *token);

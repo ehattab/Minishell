@@ -7,6 +7,7 @@ parsing/free.c \
 parsing/handle_error.c \
 parsing/parser.c \
 parsing/utils_parser.c \
+parsing/error.c \
 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell

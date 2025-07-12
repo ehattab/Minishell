@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/03 21:00:20 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/12 19:37:32 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int ac, char **av)
 	t_token		*tokens;
 	t_commands	*cmds;
 	int			error_num;
+	// int			exit_status;
 
 	error_num = 0;
 	if (ac != 1)
@@ -46,7 +47,12 @@ int	main(int ac, char **av)
 				print_cmds(&cmds);
 		}
 		else
+		{
+			if (error_num == 100)
+				error_num = 0;
+			// exit_status = error_num;
 			error_num = 0;
+		}
 		free_all(str, tokens, cmds);
 	}
 }
