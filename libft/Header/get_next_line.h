@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:06:29 by ehattab           #+#    #+#             */
-/*   Updated: 2025/04/02 16:22:56 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/15 14:58:51 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ char	*after(char *s, char *line);
 int		ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char const *s2);
-char	*ft_strdup(const char *s);
+char	*ft_strdupp(const char *s);
 
 #endif

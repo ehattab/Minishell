@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/07 18:29:41 by tony             ###   ########.fr       */
+/*   Updated: 2025/07/15 14:46:55 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		parsing_redir(t_commands *cmd);
 void		handle_redir_in(char *value);
 void		handle_redir_out(char *value);
 int			count_cmd(t_commands *cmd);
-void		check_cmd(t_commands *cmd, char **envp);
+void		exec_cmd(t_commands *cmd, char **envp);
 char		*get_path(char *str, char **envp);
 char		*find_cmd(char *cmd, char **envp, t_commands *str);
 void		ft_free(char **str);

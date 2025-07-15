@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:58 by ehattab           #+#    #+#             */
-/*   Updated: 2025/04/03 18:43:54 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/15 14:58:44 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_read(int fd, char *s)
 	char	*buff;
 
 	if (!s)
-		s = ft_strdup("");
+		s = ft_strdupp("");
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);

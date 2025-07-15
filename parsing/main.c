@@ -6,13 +6,13 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/03 16:40:11 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/15 15:04:26 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
 	char		*str;
 	t_token		*tokens;
@@ -43,9 +43,12 @@ int	main(int ac, char **av)
 		{
 			cmds = parser(tokens);
 			if (cmds != NULL)
+			{
 				print_cmds(&cmds);
-			builtin_exec(cmds);
-			parsing_redir(cmds);
+				parsing_redir(cmds);
+				if (!builtin_exec(cmds))
+					exec_cmd(cmds, envp);
+			}
 		}
 		else
 			error_num = 0;

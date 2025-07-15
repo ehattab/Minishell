@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:55 by ehattab           #+#    #+#             */
-/*   Updated: 2025/03/08 14:40:49 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/15 14:58:27 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	return (str);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdupp(const char *s)
 {
 	char	*dup;
 	size_t	i;
