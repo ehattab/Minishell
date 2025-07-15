@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/15 15:04:26 by toroman          ###   ########.fr       */
+=======
+/*   Updated: 2025/07/09 16:35:45 by tony             ###   ########.fr       */
+>>>>>>> ad478fbf33114a8225fb20ebe5666f388e4b256d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +49,16 @@ int	main(int ac, char **av, char **envp)
 			if (cmds != NULL)
 			{
 				print_cmds(&cmds);
+<<<<<<< HEAD
 				parsing_redir(cmds);
 				if (!builtin_exec(cmds))
 					exec_cmd(cmds, envp);
+=======
+			if (!builtin_exec(cmds))
+			{
+				parsing_redir(cmds);
+				check_cmd(cmds, envp);
+>>>>>>> ad478fbf33114a8225fb20ebe5666f388e4b256d
 			}
 		}
 		else
