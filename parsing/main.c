@@ -6,10 +6,11 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/15 15:28:49 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/15 15:31:12 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
 int	main(int ac, char **av, char **envp)
 {
@@ -47,9 +48,10 @@ int	main(int ac, char **av, char **envp)
 				parsing_redir(cmds);
 				if (!builtin_exec(cmds))
 					exec_cmd(cmds, envp);
-		}
+			}
 		else
 			error_num = 0;
 		free_all(str, tokens, cmds);
+		}
 	}
 }
