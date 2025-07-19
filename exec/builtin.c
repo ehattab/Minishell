@@ -6,12 +6,11 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:29:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/01 18:22:57 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/19 18:26:52 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing/minishell.h"
-
 
 int	builtin_exec(t_commands *cmd)
 {
@@ -22,10 +21,9 @@ int	builtin_exec(t_commands *cmd)
 	else if (strcmp(cmd->args[0], "cd") == 0)
 		return (builtin_cd(cmd->args), 1);
 	else if (strcmp(cmd->args[0], "pwd") == 0)
-		return (builtin_pwd(cmd->args), 1);
+		return (builtin_pwd(), 1);
 	return (0);
 }
-
 
 int	check_n_option(const char *str)
 {
@@ -34,8 +32,7 @@ int	check_n_option(const char *str)
 	if (!str || str[0] != '-' || str[1] != 'n')
 		return (0);
 	i = 2;
-
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != 'n')
 			return (0);
@@ -56,7 +53,7 @@ int	builtin_echo(char **args)
 		check_n = 1;
 		i++;
 	}
-	while(args[i])
+	while (args[i])
 	{
 		printf("%s", args[i]);
 		if (args[i + 1])
@@ -86,7 +83,7 @@ int	builtin_cd(char **cmd)
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
-	else 
+	else
 		path = cmd[1];
 	if (chdir(path) != 0)
 	{
@@ -98,13 +95,13 @@ int	builtin_cd(char **cmd)
 
 int	builtin_pwd()
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		perror("pwd");
-		return(1);
+		perror ("pwd");
+		return (1);
 	}
 	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);

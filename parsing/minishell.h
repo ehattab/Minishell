@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/19 15:29:13 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/19 18:26:11 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_commands
 	struct s_commands	*next;
 	struct s_commands	*prev;
 	char				*path;
+
 }	t_commands;
 
 void		free_all(char *str, t_token *t, t_commands *commands);
@@ -105,7 +106,7 @@ int			check_n_option(const char *str);
 int			builtin_echo(char **args);
 int			builtin_exec(t_commands *cmd);
 int			builtin_cd(char **cmd);
-int			builtin_pwd();
+int			builtin_pwd(void);
 void		parsing_redir(t_commands *cmd);
 void		handle_redir_in(char *value);
 void		handle_redir_out(char *value);
@@ -115,6 +116,8 @@ char		*get_path(char *str, char **envp);
 char		*find_cmd(char *cmd, char **envp, t_commands *str);
 void		ft_free(char **str);
 void		exec_all_cmd(t_commands *cmd, char **envp);
+void		exec_single_cmd(t_commands *cmd, char **envp);
+void		exec_child(t_commands *cmd, int prev_fd, int *pipe_fd, char **envp);
 
 
 #endif
