@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 15:13:41 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/03 17:12:12 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/19 15:45:19 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	handle_redir_out(char *value)
 {
 	int	fd;
 
-	fd = open(value, O_WRONLY | O_CREAT | O_TRUNC | 0644);
+	fd = open(value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
 	if (fd == -1)
 	{

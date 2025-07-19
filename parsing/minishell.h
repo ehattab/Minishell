@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/15 14:46:55 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/19 15:29:13 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void		exec_cmd(t_commands *cmd, char **envp);
 char		*get_path(char *str, char **envp);
 char		*find_cmd(char *cmd, char **envp, t_commands *str);
 void		ft_free(char **str);
-
+void		exec_all_cmd(t_commands *cmd, char **envp);
 
 
 #endif
