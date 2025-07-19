@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/12 19:24:54 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/19 18:50:12 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,18 @@ enum	e_token_type
 
 typedef	struct	s_lexer
 {
+	int		error_status;
 	int		error_flag;
 	char	*str;
 	int		i;
 }	t_lexer;
+
+typedef	struct	s_env
+{
+	char	*name;
+	char	*value;
+	struct s_env	*next;
+}	t_env;
 
 typedef struct	s_token
 {
@@ -71,6 +79,7 @@ typedef struct s_commands
 	struct s_commands	*next;
 	struct s_commands	*prev;
 }	t_commands;
+
 
 void		free_all(char *str, t_token *t, t_commands *commands);
 t_token		*create_token(char *str, enum e_token_type type);
