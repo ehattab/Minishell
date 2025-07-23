@@ -1,0 +1,7 @@
+exec
+libft
+Makefile
+minishell
+minishell_tester
+parsing
+you.txt
