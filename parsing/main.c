@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/19 17:25:51 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/23 16:24:20 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,9 @@ int	main(int ac, char **av, char **envp)
 			if (cmds != NULL)
 			{
 				//print_cmds(&cmds);
-				if (!builtin_exec(cmds))
-				{
-					if (count_cmd(cmds) == 1)
-						exec_cmd(cmds, envp);
-					else
-						exec_all_cmd(cmds, envp);
-				}
+			
+				exec_cmd(cmds, envp);
+				//exec_all_cmd(cmds, envp);
 			}
 		else
 			error_num = 0;

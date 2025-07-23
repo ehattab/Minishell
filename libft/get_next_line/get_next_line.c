@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:58 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/15 14:58:44 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:59:29 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_read(int fd, char *s)
 	if (!buff)
 		return (NULL);
 	lu = 1;
-	while (!ft_strchr(s, '\n') && lu != 0)
+	while (!ft_strchrs(s, '\n') && lu != 0)
 	{
 		lu = read(fd, buff, BUFFER_SIZE);
 		if (lu <= 0)

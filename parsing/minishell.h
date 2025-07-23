@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/19 18:26:11 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/23 16:16:22 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,10 @@ void		ft_free(char **str);
 void		exec_all_cmd(t_commands *cmd, char **envp);
 void		exec_single_cmd(t_commands *cmd, char **envp);
 void		exec_child(t_commands *cmd, int prev_fd, int *pipe_fd, char **envp);
-
+int			builtin_env(char **envp);
+int			builtin_exit(char **args);
+int			is_numeric_argument(char *str);
+int			has_redirection(t_commands *cmd);
+int			is_builtin(t_commands *cmd);
 
 #endif

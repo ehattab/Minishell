@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:55 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/15 14:58:27 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:59:25 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen(const char *str);
 // 	return (i);
 // }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchrs(const char *str, int c)
 {
 	unsigned int	i;
 

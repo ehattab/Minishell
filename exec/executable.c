@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/19 18:27:51 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/23 16:19:20 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,23 @@ void	exec_cmd(t_commands *cmd, char **envp)
 {
 	pid_t	pid;
 	int		status;
+
 	if (count_cmd(cmd) != 1)
+		return exec_all_cmd(cmd, envp);
+	if (!has_redirection(cmd) && is_builtin(cmd))
+	{
+		builtin_exec(cmd);
 		return ;
+	}
 	pid = fork();
 	if (pid == 0)
-		exec_single_cmd(cmd, envp);
+	{
+		parsing_redir(cmd);
+		if (builtin_exec(cmd))
+			exit (0);
+		exec_all_cmd(cmd, envp);
+		exit (1);
+	}
 	else if (pid > 0)
 		waitpid(pid, &status, 0);
 	else
@@ -44,7 +56,6 @@ void	exec_single_cmd(t_commands *cmd, char **envp)
 {
 	char	*path;
 
-	parsing_redir(cmd);
 	path = find_cmd(cmd->args[0], envp, cmd);
 	if (!path)
 	{

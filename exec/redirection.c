@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 15:13:41 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/19 16:54:26 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/23 16:11:48 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	parsing_redir(t_commands *cmd)
 {
-	t_commands	*tmp;
+	t_redir	*tmp;
 
-	tmp = cmd;
-	while (tmp->redirections)
+	tmp = cmd->redirections;
+	while (tmp)
 	{
-		if (tmp->redirections->type == REDIR_IN)
-			handle_redir_in(tmp->redirections->file);
-		else if (tmp->redirections->type == REDIR_OUT)
-			handle_redir_out(tmp->redirections->file);
-		tmp->redirections = tmp->redirections->next;
+		if (tmp->type == REDIR_IN)
+			handle_redir_in(tmp->file);
+		else if (tmp->type == REDIR_OUT)
+			handle_redir_out(tmp->file);
+		tmp = tmp->next;
 	}
 }
 
@@ -63,4 +63,9 @@ void	handle_redir_out(char *value)
 		return ;
 	}
 	close(fd);
+}
+
+int	has_redirection(t_commands *cmd)
+{
+	return (cmd->redirections != NULL);
 }
