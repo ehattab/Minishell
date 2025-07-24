@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/19 19:00:02 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:26:36 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,41 @@ int	main(int ac, char **av)
 	t_token		*tokens;
 	t_commands	*cmds;
 	t_lexer		*l;
-	int			error_num;
 
-	error_num = 0;
 	if (ac != 1)
 	{
 		ft_putendl_fd("This program does not take any arguments", 2);
 		exit(1);
 	}
-	(void) ac;
-	(void) av;
-	cmds = NULL;
+	(void)av;
+	l = malloc(sizeof(t_lexer));
+	if (!l)
+	{
+		ft_putendl_fd("fatal error: malloc failed", 2);
+		return (1);
+	}
+	ft_bzero(l, sizeof(t_lexer));
+
 	while (1)
 	{
 		str = readline("Minishell :");
 		if (!str)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		add_history(str);
 		tokens = lexer(str);
-		error_num = handle_error(tokens);
-		if (!error_num)
+		l->error_status = handle_error(tokens);
+		if (l->error_status == 0)
 		{
+			tokens = expander(tokens, l->error_status);
 			cmds = parser(tokens);
-			if (cmds != NULL)
+			if (cmds)
 				print_cmds(&cmds);
-		}
-		else
-		{
-			if (error_num == 100)
-				error_num = 0;
-			l->error_status = error_num;
-			error_num = 0;
 		}
 		free_all(str, tokens, cmds);
 	}
-	free (l);
+	free(l);
+	return (0);
 }

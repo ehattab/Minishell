@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/19 18:50:12 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/24 21:01:03 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int			check_syntax(t_token *tokens);
 // int			check_pipe(t_token *t);
 // int			simple_return(t_token *t);
 int			check_disallowed_token(t_token *t);
-int	check_redirection_token(t_token *t);
-int	check_pipe_syntax(t_token *t);
-int	print_syntax_error(char *token);
+int			check_redirection_token(t_token *t);
+int			check_pipe_syntax(t_token *t);
+int			print_syntax_error(char *token);
 t_commands	*parser(t_token *input_tokens);
 void		add_command(t_commands **head, t_commands *new);
 void		add_redirection(t_commands **cmd, t_token *token);
@@ -116,5 +116,13 @@ void		print_cmds(t_commands **head);
 void		free_cmds(t_commands **head);
 void		free_redirection(t_redir **head);
 void		free_tab(char **tab);
+int			ft_has_dollar(const char *str);
+t_token		*expander(t_token *tokens, int last_status);
+char		*expand_line(const char *line, int *status);
+char		*expand_var(const char *str, int *status, int *len);
+char		*ft_strjoin_free(char *s1, char *s2, int to_free);
+char		*handle_single_quote(const char *line, int *i);
+char		*handle_expansion(const char *line, int *i, int *status);
+char		*append_char(char *str, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:55 by ehattab           #+#    #+#             */
-/*   Updated: 2025/03/08 14:40:49 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/24 16:32:36 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	return (str);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup_gnl(const char *s)
 {
 	char	*dup;
 	size_t	i;

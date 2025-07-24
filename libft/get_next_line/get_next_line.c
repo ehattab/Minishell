@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:58 by ehattab           #+#    #+#             */
-/*   Updated: 2025/04/03 18:43:54 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/24 16:32:15 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_read(int fd, char *s)
 	char	*buff;
 
 	if (!s)
-		s = ft_strdup("");
+		s = ft_strdup_gnl("");
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
