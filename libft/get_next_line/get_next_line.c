@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:58 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/24 16:32:15 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/26 16:24:44 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_read(int fd, char *s)
 	if (!buff)
 		return (NULL);
 	lu = 1;
-	while (!ft_strchr(s, '\n') && lu != 0)
+	while (!ft_strchr_gnl(s, '\n') && lu != 0)
 	{
 		lu = read(fd, buff, BUFFER_SIZE);
 		if (lu <= 0)
@@ -34,7 +34,7 @@ char	*ft_read(int fd, char *s)
 				return (free(buff), s);
 		}
 		buff[lu] = '\0';
-		s = ft_strjoin(s, buff);
+		s = ft_strjoin_gnl(s, buff);
 	}
 	free(buff);
 	return (s);

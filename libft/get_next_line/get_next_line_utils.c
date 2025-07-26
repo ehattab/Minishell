@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:55 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/24 16:32:36 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/26 16:24:22 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen(const char *str);
 // 	return (i);
 // }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr_gnl(const char *str, int c)
 {
 	unsigned int	i;
 
@@ -40,7 +40,7 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *s1, const char *s2)
+char	*ft_strjoin_gnl(char *s1, const char *s2)
 {
 	int		i;
 	int		j;

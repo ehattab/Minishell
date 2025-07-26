@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/24 21:01:03 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/26 18:17:15 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,15 @@ void		print_cmds(t_commands **head);
 void		free_cmds(t_commands **head);
 void		free_redirection(t_redir **head);
 void		free_tab(char **tab);
-int			ft_has_dollar(const char *str);
 t_token		*expander(t_token *tokens, int last_status);
-char		*expand_line(const char *line, int *status);
-char		*expand_var(const char *str, int *status, int *len);
-char		*ft_strjoin_free(char *s1, char *s2, int to_free);
-char		*handle_single_quote(const char *line, int *i);
-char		*handle_expansion(const char *line, int *i, int *status);
-char		*append_char(char *str, char c);
+// char	*expand_word(char *line, int *status);
+// char	*ft_strjoin_and_free(char *s1, char *s2);
+// char	*extract_var_name(char *line, int *i);
+// int	is_valid_var_char(char c);
+// char	*get_env_value(const char *name, int *status);
+char	*ft_getenv(char *name, int last_status);
+char	*extract_var_name(char *str, int index, int *new_index);
+char	*expand_token_value(char *val, int last_status);
+char	*strjoin_and_free(char *s1, char *s2);
 
 #endif

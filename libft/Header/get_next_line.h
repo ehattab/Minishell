@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:06:29 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/24 16:31:52 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/26 16:24:57 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ char	*after(char *s, char *line);
 	// utils
 
 int		ft_strlen(const char *str);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strchr_gnl(const char *s, int c);
+char	*ft_strjoin_gnl(char *s1, char const *s2);
 char	*ft_strdup_gnl(const char *s);
 
 #endif
