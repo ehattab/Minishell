@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/23 16:16:22 by toroman          ###   ########.fr       */
+/*   Updated: 2025/07/28 17:47:36 by tony             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,7 @@ int			builtin_exit(char **args);
 int			is_numeric_argument(char *str);
 int			has_redirection(t_commands *cmd);
 int			is_builtin(t_commands *cmd);
+void		append_redir(char *value);
+void		handle_heredoc(char *delimeter);
 
 #endif
