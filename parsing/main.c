@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/24 20:26:36 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/31 19:39:13 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int	main(int ac, char **av)
 {
+	int			error_status;
 	char		*str;
 	t_token		*tokens;
 	t_commands	*cmds;
-	t_lexer		*l;
+	t_context	ctx;
 
 	if (ac != 1)
 	{
@@ -25,14 +26,7 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	(void)av;
-	l = malloc(sizeof(t_lexer));
-	if (!l)
-	{
-		ft_putendl_fd("fatal error: malloc failed", 2);
-		return (1);
-	}
-	ft_bzero(l, sizeof(t_lexer));
-
+	ctx.last_status = 0;
 	while (1)
 	{
 		str = readline("Minishell :");
@@ -42,17 +36,19 @@ int	main(int ac, char **av)
 			break ;
 		}
 		add_history(str);
+		cmds = NULL;
 		tokens = lexer(str);
-		l->error_status = handle_error(tokens);
-		if (l->error_status == 0)
+		error_status = handle_error(tokens);
+		tokens = expander(tokens, &ctx);
+		if (ctx.last_status == 0)
 		{
-			tokens = expander(tokens, l->error_status);
 			cmds = parser(tokens);
 			if (cmds)
 				print_cmds(&cmds);
 		}
+		else
+			ctx.last_status = error_status;
 		free_all(str, tokens, cmds);
 	}
-	free(l);
 	return (0);
 }

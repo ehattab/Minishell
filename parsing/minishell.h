@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/26 18:17:15 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/07/31 19:23:57 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ enum	e_token_type
 
 typedef	struct	s_lexer
 {
-	int		error_status;
 	int		error_flag;
 	char	*str;
 	int		i;
@@ -80,6 +79,10 @@ typedef struct s_commands
 	struct s_commands	*prev;
 }	t_commands;
 
+typedef struct s_context
+{
+	int	last_status;
+}	t_context;
 
 void		free_all(char *str, t_token *t, t_commands *commands);
 t_token		*create_token(char *str, enum e_token_type type);
@@ -116,15 +119,11 @@ void		print_cmds(t_commands **head);
 void		free_cmds(t_commands **head);
 void		free_redirection(t_redir **head);
 void		free_tab(char **tab);
-t_token		*expander(t_token *tokens, int last_status);
-// char	*expand_word(char *line, int *status);
-// char	*ft_strjoin_and_free(char *s1, char *s2);
-// char	*extract_var_name(char *line, int *i);
-// int	is_valid_var_char(char c);
-// char	*get_env_value(const char *name, int *status);
-char	*ft_getenv(char *name, int last_status);
+t_token	*expander(t_token *tokens, t_context *ctx);
+char	*ft_getenv(char *name, t_context *ctx);
+char	*handle_dollar(char *val, int i, t_context *ctx, int *new_i);
 char	*extract_var_name(char *str, int index, int *new_index);
-char	*expand_token_value(char *val, int last_status);
+char	*expand_token_value(char *val, t_context *ctx);
 char	*strjoin_and_free(char *s1, char *s2);
 
 #endif
