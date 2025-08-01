@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/31 19:23:57 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/01 18:36:53 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ char	*handle_dollar(char *val, int i, t_context *ctx, int *new_i);
 char	*extract_var_name(char *str, int index, int *new_index);
 char	*expand_token_value(char *val, t_context *ctx);
 char	*strjoin_and_free(char *s1, char *s2);
+void	remove_empty_tokens(t_token **tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:42:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/31 19:19:36 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/01 18:45:07 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,15 @@ char	*expand_token_value(char *val, t_context *ctx)
 		if (val[i] == '\'' && val[i + 1])
 			tmp = handle_single_quote(val, i, &new_i);
 		else if (val[i] == '$')
-			tmp = handle_dollar(val, i + 1, ctx, &new_i);
+		{
+			if (!val[i + 1] || (!ft_isalnum(val[i + 1]) && val[i + 1] != '_' && val[i + 1] != '?'))
+			{
+				tmp = ft_strdup("$");
+				new_i = i + 1;
+			}
+			else
+				tmp = handle_dollar(val, i + 1, ctx, &new_i);
+		}
 		else
 			tmp = handle_char(val, i, &new_i);
 		result = strjoin_and_free(result, tmp);
@@ -131,5 +139,6 @@ t_token	*expander(t_token *tokens, t_context *ctx)
 			tmp->value = expand_token_value(tmp->value, ctx);
 		tmp = tmp->next;
 	}
+	remove_empty_tokens(&tokens);
 	return (tokens);
 }

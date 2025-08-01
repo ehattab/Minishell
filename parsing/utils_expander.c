@@ -6,36 +6,41 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:40:53 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/21 17:09:30 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/01 18:32:36 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	ft_has_dollar(const char *str)
-// {
-// 	int	i;
-// 	int	*tab;
-// 	int	j;
+void	remove_token(t_token **tokens, t_token *to_remove)
+{
+	if (!tokens || !*tokens || !to_remove)
+		return ;
+	if (to_remove->prev)
+		to_remove->prev->next = to_remove->next;
+	if (to_remove->next)
+		to_remove->next->prev = to_remove->prev;
+	if (*tokens == to_remove)
+		*tokens = to_remove->next;
+	free(to_remove->value);
+	free(to_remove);
+}
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '$')
-// 			j++;
-// 		i++;
-// 	}
-// 	tab = malloc(sizeof(int) * (j + 1));
-// 	j = 0;
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '$')
-// 		{
-// 			tab[j] = i;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (tab);
-// }
+void	remove_empty_tokens(t_token **tokens)
+{
+	t_token	*tmp;
+	t_token	*next;
+
+	tmp = *tokens;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->type == WORD
+			&& (!tmp->value || tmp->value[0] == '\0')
+			&& !(tmp->value && tmp->value[0] == '$' && tmp->value[1] == '\0'))
+		{
+			remove_token(tokens, tmp);
+		}
+		tmp = next;
+	}
+}
