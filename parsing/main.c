@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/23 16:24:20 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:54:32 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,33 @@
 
 int	main(int ac, char **av, char **envp)
 {
+	int			error_status;
 	char		*str;
 	t_token		*tokens;
 	t_commands	*cmds;
-	int			error_num;
+	t_context	ctx;
 
-	error_num = 0;
 	if (ac != 1)
 	{
 		ft_putendl_fd("This program does not take any arguments", 2);
 		exit(1);
 	}
-	(void) ac;
-	(void) av;
-	cmds = NULL;
+	(void)av;
+	ctx.last_status = 0;
 	while (1)
 	{
 		str = readline("Minishell :");
 		if (!str)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		add_history(str);
+		cmds = NULL;
 		tokens = lexer(str);
-		// error_num = check_syntax(tokens);
-		if (!error_num)
+		error_status = handle_error(tokens);
+		tokens = expander(tokens, &ctx);
+		if (error_status == 0)
 		{
 			cmds = parser(tokens);
 			if (cmds != NULL)
@@ -49,9 +50,13 @@ int	main(int ac, char **av, char **envp)
 				exec_cmd(cmds, envp);
 				//exec_all_cmd(cmds, envp);
 			}
-		else
-			error_num = 0;
-		free_all(str, tokens, cmds);
+			//if (cmds)
+			//	print_cmds(&cmds);
+			ctx.last_status = 0;
 		}
+		else
+			ctx.last_status = error_status;
+		free_all(str, tokens, cmds);
 	}
+	return (0);
 }

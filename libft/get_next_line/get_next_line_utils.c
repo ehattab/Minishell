@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:55 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/23 14:59:25 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:53:32 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen(const char *str);
 // 	return (i);
 // }
 
-char	*ft_strchrs(const char *str, int c)
+char	*ft_strchr_gnl(const char *str, int c)
 {
 	unsigned int	i;
 
@@ -40,7 +40,7 @@ char	*ft_strchrs(const char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *s1, const char *s2)
+char	*ft_strjoin_gnl(char *s1, const char *s2)
 {
 	int		i;
 	int		j;
@@ -66,7 +66,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	return (str);
 }
 
-char	*ft_strdupp(const char *s)
+char	*ft_strdup_gnl(const char *s)
 {
 	char	*dup;
 	size_t	i;

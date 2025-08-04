@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:08:58 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/23 14:59:29 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:54:02 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ char	*ft_read(int fd, char *s)
 	char	*buff;
 
 	if (!s)
-		s = ft_strdupp("");
+		s = ft_strdup_gnl("");
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
 	lu = 1;
-	while (!ft_strchrs(s, '\n') && lu != 0)
+	while (!ft_strchr_gnl(s, '\n') && lu != 0)
 	{
 		lu = read(fd, buff, BUFFER_SIZE);
 		if (lu <= 0)
@@ -34,7 +34,7 @@ char	*ft_read(int fd, char *s)
 				return (free(buff), s);
 		}
 		buff[lu] = '\0';
-		s = ft_strjoin(s, buff);
+		s = ft_strjoin_gnl(s, buff);
 	}
 	free(buff);
 	return (s);

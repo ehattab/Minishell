@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/04 16:18:33 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:49:35 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-enum	token_type
+enum	e_token_type
 {
 	WORD,
 	PIPE,
@@ -49,12 +49,19 @@ typedef	struct	s_lexer
 	int		i;
 }	t_lexer;
 
+typedef	struct	s_env
+{
+	char	*name;
+	char	*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct	s_token
 {
-	char			*value;
-	enum token_type	type;
-	struct s_token	*next;
-	struct s_token	*prev;
+	char				*value;
+	enum e_token_type	type;
+	struct s_token		*next;
+	struct s_token		*prev;
 }	t_token;
 
 typedef struct	s_redir
@@ -75,8 +82,14 @@ typedef struct s_commands
 
 }	t_commands;
 
+typedef struct s_context
+{
+	int	last_status;
+}	t_context;
+
 void		free_all(char *str, t_token *t, t_commands *commands);
-void		add_token(t_token **head,char *str, enum token_type class);
+t_token		*create_token(char *str, enum e_token_type type);
+void		add_token(t_token **head, char *str, enum e_token_type type);
 void		print_token(t_token **head);
 void		free_token(t_token **head);
 t_token		*lexer(char *str);
@@ -90,9 +103,17 @@ void		tokenize_word(t_token **t, t_lexer *l, int type);
 void		tokenize_append(t_token **t, t_lexer *l, int type);
 void		tokenize_heredoc(t_token **t, t_lexer *l, int type);
 void		tokenize_redir(t_token **t, t_lexer *l, int type);
+int			handle_error(t_token *tokens);
 int			check_syntax(t_token *tokens);
-// void		check_start(t_lexer *l, t_token *t);
-int			check_redir(t_token *t);
+// int			check_redir(t_token *t);
+// int			check_redir_args(t_token *t);
+// int			check_redir_dbl(t_token *t);
+// int			check_pipe(t_token *t);
+// int			simple_return(t_token *t);
+int			check_disallowed_token(t_token *t);
+int			check_redirection_token(t_token *t);
+int			check_pipe_syntax(t_token *t);
+int			print_syntax_error(char *token);
 t_commands	*parser(t_token *input_tokens);
 void		add_command(t_commands **head, t_commands *new);
 void		add_redirection(t_commands **cmd, t_token *token);
@@ -101,6 +122,13 @@ void		print_cmds(t_commands **head);
 void		free_cmds(t_commands **head);
 void		free_redirection(t_redir **head);
 void		free_tab(char **tab);
+t_token	*expander(t_token *tokens, t_context *ctx);
+char	*ft_getenv(char *name, t_context *ctx);
+char	*handle_dollar(char *val, int i, t_context *ctx, int *new_i);
+char	*extract_var_name(char *str, int index, int *new_index);
+char	*expand_token_value(char *val, t_context *ctx);
+char	*strjoin_and_free(char *s1, char *s2);
+void	remove_empty_tokens(t_token **tokens);
 
 int			check_n_option(const char *str);
 int			builtin_echo(char **args);

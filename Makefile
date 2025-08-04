@@ -4,7 +4,6 @@ parsing/lexer.c \
 parsing/tokenize.c \
 parsing/utils_token.c \
 parsing/free.c \
-parsing/handle_error.c \
 parsing/parser.c \
 parsing/utils_parser.c \
 exec/builtin.c\
@@ -12,6 +11,9 @@ exec/redirection.c\
 exec/executable.c\
 exec/executable1.c\
 exec/builtin1.c\
+parsing/error.c \
+parsing/expander.c \
+parsing/utils_expander.c \
 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell
