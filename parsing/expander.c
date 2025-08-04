@@ -3,30 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:42:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/01 18:45:07 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:10:14 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_getenv(char *name, t_context *ctx)
+char    *ft_getenv(char *name, t_context *ctx)
 {
-	char	*itoa;
+    int     i;
+    int     len;
+    char    *itoa;
 
-	if (ft_strcmp(name, "?") == 0)
-	{
-		itoa = ft_itoa(ctx->last_status);
-		if (!itoa)
-			return (ft_strdup(""));
-		return (itoa);
-	}
-	if (!getenv(name))
-		return (ft_strdup(""));
-	return (ft_strdup(getenv(name)));
+    if (ft_strcmp(name, "?") == 0)
+    {
+        itoa = ft_itoa(ctx->last_status);
+        if (!itoa)
+            return (ft_strdup(""));
+        return (itoa);
+    }
+    len = ft_strlen(name);
+    i = 0;
+    while (ctx->env[i])
+    {
+        if (!ft_strncmp(ctx->env[i], name, len) && ctx->env[i][len] == '=')
+            return ft_strdup(ctx->env[i] + len + 1);
+        i++;
+    }
+    return (ft_strdup(""));
 }
+
 
 char	*extract_var_name(char *str, int index, int *new_index)
 {

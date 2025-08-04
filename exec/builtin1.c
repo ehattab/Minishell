@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:47:02 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/04 16:27:05 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 17:02:13 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,7 @@ int	builtin_exit(char **args)
 	exit((unsigned char)exit_code);
 }
 
-int	builtin_env(char **envp)
-{
-	int	i;
 
-	if (!envp)
-		return (1);
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strchr(envp[i], '='))
-			ft_putendl_fd(envp[i], 1);
-		i++;
-	}
-	return (0);
-}
 
 int	is_builtin(t_commands *cmd)
 {
@@ -79,8 +65,6 @@ int	is_builtin(t_commands *cmd)
 	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
 		return (1);
 	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		return (1);
-	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		return (1);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		return (1);

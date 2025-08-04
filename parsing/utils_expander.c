@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_expander.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:40:53 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/01 18:32:36 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:09:23 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,24 @@ void	remove_empty_tokens(t_token **tokens)
 		}
 		tmp = next;
 	}
+}
+
+char    **copy_env(char **envp)
+{
+    int i = 0;
+    char **new_env;
+
+    while (envp[i])
+        i++;
+    new_env = malloc((i + 1) * sizeof(char *));
+    if (!new_env)
+        return NULL;
+    i = 0;
+    while (envp[i])
+    {
+        new_env[i] = ft_strdup(envp[i]);
+        i++;
+    }
+    new_env[i] = NULL;
+    return new_env;
 }

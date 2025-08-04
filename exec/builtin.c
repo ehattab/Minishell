@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:29:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/04 16:20:33 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 17:02:25 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	builtin_exec(t_commands *cmd, char **envp)
 		return (builtin_pwd(), 1);
 	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
 		return (builtin_exit(cmd->args), 1);
-	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
-		return (builtin_env(cmd->args), 1);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		return (builtin_unset(cmd->args, envp), 1);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)

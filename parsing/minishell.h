@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/04 16:49:35 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:40:59 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ typedef struct s_commands
 
 typedef struct s_context
 {
-	int	last_status;
-}	t_context;
+    char    **env;
+    int     last_status;
+}   t_context;
+
 
 void		free_all(char *str, t_token *t, t_commands *commands);
 t_token		*create_token(char *str, enum e_token_type type);
@@ -105,14 +107,9 @@ void		tokenize_heredoc(t_token **t, t_lexer *l, int type);
 void		tokenize_redir(t_token **t, t_lexer *l, int type);
 int			handle_error(t_token *tokens);
 int			check_syntax(t_token *tokens);
-// int			check_redir(t_token *t);
-// int			check_redir_args(t_token *t);
-// int			check_redir_dbl(t_token *t);
-// int			check_pipe(t_token *t);
-// int			simple_return(t_token *t);
 int			check_disallowed_token(t_token *t);
-int			check_redirection_token(t_token *t);
-int			check_pipe_syntax(t_token *t);
+char 		*check_redirection_token(t_token *t);
+char 		*check_pipe_syntax(t_token *t);
 int			print_syntax_error(char *token);
 t_commands	*parser(t_token *input_tokens);
 void		add_command(t_commands **head, t_commands *new);
@@ -124,6 +121,7 @@ void		free_redirection(t_redir **head);
 void		free_tab(char **tab);
 t_token	*expander(t_token *tokens, t_context *ctx);
 char	*ft_getenv(char *name, t_context *ctx);
+char    **copy_env(char **envp);
 char	*handle_dollar(char *val, int i, t_context *ctx, int *new_i);
 char	*extract_var_name(char *str, int index, int *new_index);
 char	*expand_token_value(char *val, t_context *ctx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:29:04 by ehattab           #+#    #+#             */
-/*   Updated: 2025/05/28 20:19:07 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:27:55 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	end_quotes(t_lexer *l, int type)
 	}
 	if (l->str[j] == '\0')
 	{
-		ft_putendl_fd("The quote(s) is not closed\n", 2);
+		ft_putendl_fd("The quote(s) is not closed", 2);
 		return (-1);
 	}
 	else
