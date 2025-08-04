@@ -6,13 +6,13 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:29:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/23 16:54:28 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:20:33 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing/minishell.h"
 
-int	builtin_exec(t_commands *cmd)
+int	builtin_exec(t_commands *cmd, char **envp)
 {
 	if (!cmd || !cmd->args[0] || !cmd->args)
 		return (0);
@@ -26,6 +26,10 @@ int	builtin_exec(t_commands *cmd)
 		return (builtin_exit(cmd->args), 1);
 	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
 		return (builtin_env(cmd->args), 1);
+	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+		return (builtin_unset(cmd->args, envp), 1);
+	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+		return (builtin_export(cmd->args, envp), 1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:21 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/23 16:01:22 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:23:37 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	exec_child(t_commands *cmd, int prev_fd, int *pipe_fd, char **envp)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
-	if (builtin_exec(cmd))
+	if (builtin_exec(cmd, envp))
 		exit (0);
 	path = find_cmd(cmd->args[0], envp, cmd);
 	if (!path)

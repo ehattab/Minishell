@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/07/23 16:19:20 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:22:39 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	exec_cmd(t_commands *cmd, char **envp)
 		return exec_all_cmd(cmd, envp);
 	if (!has_redirection(cmd) && is_builtin(cmd))
 	{
-		builtin_exec(cmd);
+		builtin_exec(cmd, envp);
 		return ;
 	}
 	pid = fork();
 	if (pid == 0)
 	{
 		parsing_redir(cmd);
-		if (builtin_exec(cmd))
+		if (builtin_exec(cmd, envp))
 			exit (0);
 		exec_all_cmd(cmd, envp);
 		exit (1);

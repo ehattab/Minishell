@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/28 17:47:36 by tony             ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:33 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void		free_tab(char **tab);
 
 int			check_n_option(const char *str);
 int			builtin_echo(char **args);
-int			builtin_exec(t_commands *cmd);
+int			builtin_exec(t_commands *cmd, char **envp);
 int			builtin_cd(char **cmd);
 int			builtin_pwd(void);
 void		parsing_redir(t_commands *cmd);
@@ -125,5 +125,11 @@ int			has_redirection(t_commands *cmd);
 int			is_builtin(t_commands *cmd);
 void		append_redir(char *value);
 void		handle_heredoc(char *delimeter);
+void		remove_from_env(char *var, char **envp);
+int			builtin_unset(char **args, char **envp);
+int			is_valid_varname(char *str);
+char		*get_var_name(char *arg);
+void		set_var_env(char *arg, char **envp);
+int			builtin_export(char **args, char **envp);
 
 #endif
