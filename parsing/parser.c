@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:01:46 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/07 18:22:54 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 18:25:28 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ t_commands	*parser(t_token *input_tokens)
 {
 	t_token		*tokens;
 	t_commands	*cmds;
+	t_commands	*new;
 
 	cmds = NULL;
 	tokens = input_tokens;
 	while (tokens)
 	{
-		t_commands	*new;
 		new = malloc(sizeof(t_commands));
 		new->args = NULL;
 		new->num_redirections = 0;
@@ -31,7 +31,7 @@ t_commands	*parser(t_token *input_tokens)
 		while (tokens && tokens->type != PIPE)
 		{
 			if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
-			|| tokens->type == REDIR_APPEND || tokens->type == HEREDOC)
+				|| tokens->type == REDIR_APPEND || tokens->type == HEREDOC)
 			{
 				add_redirection(&new, tokens);
 				tokens = tokens->next;
@@ -94,7 +94,7 @@ char	**add_word(char **array, char *str)
 {
 	int		i;
 	char	**new_array;
-	
+
 	i = 0;
 	if (array)
 	{

@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:41:48 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 18:19:17 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 19:11:10 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,10 @@ void	minishell_loop(t_context *ctx)
 			add_history(str);
 		process_input(str, ctx);
 	}
+}
+
+void	reset_signal_exec(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }

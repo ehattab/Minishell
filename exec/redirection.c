@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 15:13:41 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 16:07:02 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 19:10:19 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,27 @@ void	handle_redir_out(char *value)
 		return ;
 	}
 	close(fd);
+}
+
+void	wait_for_single(pid_t pid)
+{
+	int	status;
+	int	sig;
+
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status))
+	{
+		sig = WTERMSIG(status);
+		if (sig == SIGQUIT)
+			write(2, "Quit (core dumped)\n", 20);
+		else if (sig == SIGINT)
+			write(2, "\n", 1);
+	}
+}
+
+void	parent_wait_and_handle_signal(pid_t pid)
+{
+	ignore_parent_signals();
+	wait_for_single(pid);
+	reset_signal_exec();
 }

@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 15:57:43 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 19:07:12 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	count_cmd(t_commands *cmd)
 void	exec_cmd(t_commands *cmd, char **envp)
 {
 	pid_t	pid;
-	int		status;
 
 	if (count_cmd(cmd) != 1)
 		return (exec_all_cmd(cmd, envp));
@@ -40,6 +39,7 @@ void	exec_cmd(t_commands *cmd, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
+		reset_signal_exec();
 		parsing_redir(cmd);
 		if (builtin_exec(cmd, envp))
 			exit (0);
@@ -47,7 +47,7 @@ void	exec_cmd(t_commands *cmd, char **envp)
 		exit (1);
 	}
 	else if (pid > 0)
-		waitpid(pid, &status, 0);
+		parent_wait_and_handle_signal(pid);
 	else
 		perror("fork");
 }

@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:06:32 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 16:11:17 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 19:11:17 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,10 @@ void	handle_while(int fd, char *delimeter)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+}
+
+void	ignore_parent_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

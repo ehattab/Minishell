@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:21 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 15:57:54 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 18:47:32 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	exec_all_cmd(t_commands *cmd, char **envp)
 		pid = fork();
 		if (pid == 0)
 		{
+			reset_signal_exec();
 			parsing_redir(cmd);
 			exec_child(cmd, prev_fd, pipe_fd, envp);
 		}
@@ -40,9 +41,19 @@ void	exec_all_cmd(t_commands *cmd, char **envp)
 void	wait_for_all(void)
 {
 	int	status;
+	int	sig;
 
 	while (wait(&status) > 0)
-		;
+	{
+		if (WIFSIGNALED(status))
+		{
+			sig = WTERMSIG(status);
+			if (sig == SIGQUIT)
+				write(2, "Quit (core dumped)\n", 20);
+			else if (sig == SIGINT)
+				write(2, "\n", 1);
+		}
+	}
 }
 
 void	handle_parent(int *prev_fd, int *pipe_fd, t_commands *cmd)

@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/07 17:25:23 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 19:07:02 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,9 @@ int						check_double_operators(t_token *t);
 int						check_heredoc_syntax(t_token *t);
 char					*handle_single_quote(char *val, int i, int *new_i);
 char					*handle_char(char *val, int i, int *new_i);
-t_token					*parse_command_tokens(t_token *tokens, t_commands *cmd);
-int						tab_len(char **array);
-void					copy_array(char **dest, char **src, int len);
+void					reset_signal_exec(void);
+void					wait_for_single(pid_t pid);
+void					ignore_parent_signals(void);
+void					parent_wait_and_handle_signal(pid_t pid);
 
 #endif
