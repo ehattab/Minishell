@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/16 16:45:08 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:54:17 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_tab(char **tab)
 
 	i = 0;
 	if (!tab)
-		return;
+		return ;
 	while (tab[i])
 	{
 		free(tab[i]);

@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:47:02 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/04 17:02:13 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:56:49 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	is_numeric_argument(char *str)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!str)
 		return (0);
 	if (str[i] == '-' || str[i] == '+')
@@ -52,8 +53,6 @@ int	builtin_exit(char **args)
 	exit((unsigned char)exit_code);
 }
 
-
-
 int	is_builtin(t_commands *cmd)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
@@ -73,14 +72,12 @@ int	is_builtin(t_commands *cmd)
 	return (0);
 }
 
-
 void	remove_from_env(char *var, char **envp)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], var, ft_strlen(var)) == 0
@@ -108,101 +105,6 @@ int	builtin_unset(char **args, char **envp)
 	while (args[i])
 	{
 		remove_from_env(args[i], envp);
-		i++;
-	}
-	return (0);
-}
-
-int	is_valid_varname(char *str)
-{
-	int	i;
-
-	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
-		return (0);
-	i = 1;
-	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-char	*get_var_name(char *arg)
-{
-	int		i;
-	char	*name;
-
-	i = 0;
-	while (arg[i] && arg[i] != '=')
-		i++;
-	name = malloc(i + 1);
-	if (!name)
-		return (NULL);
-	ft_strlcpy(name, arg, i + 1);
-	return (name);
-}
-
-int	find_var_env(char *name, char **envp)
-{
-	int	i;
-	int	len;
-
-	len = ft_strlen(name);
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], name, len) && envp[i][len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	set_var_env(char *arg, char **envp)
-{
-	char *name;
-	int	pos;
-	int	j;
-
-	name = get_var_name(arg);
-	if (!name)
-		return ;
-	pos = find_var_env(name, envp);
-	free (name);
-	if (pos != -1)
-	{
-		free(envp[pos]);
-		envp[pos] = ft_strdup(arg);
-	}
-	else
-	{
-		j = 0;
-		while (envp[j])
-			j++;
-		envp[j] = ft_strdup(arg);
-		envp[j + 1] = NULL;
-	}
-}
-
-int	builtin_export(char **args, char **envp)
-{
-	int	i;
-
-	if (!args[1])
-		return (0);
-	i = 1;
-	while (args[i])
-	{
-		if (!is_valid_varname(args[i]))
-		{
-			ft_putstr_fd("export: `", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putendl_fd("`: not a valid identifier", 2);
-		}
-		else
-			set_var_env(args[i], envp);
 		i++;
 	}
 	return (0);

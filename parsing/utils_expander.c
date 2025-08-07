@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:40:53 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/04 18:09:23 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:54:20 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	remove_empty_tokens(t_token **tokens)
 	while (tmp)
 	{
 		next = tmp->next;
-		if (tmp->type == WORD
-			&& (!tmp->value || tmp->value[0] == '\0')
+		if (tmp->type == WORD && (!tmp->value || tmp->value[0] == '\0')
 			&& !(tmp->value && tmp->value[0] == '$' && tmp->value[1] == '\0'))
 		{
 			remove_token(tokens, tmp);
@@ -45,22 +44,23 @@ void	remove_empty_tokens(t_token **tokens)
 	}
 }
 
-char    **copy_env(char **envp)
+char	**copy_env(char **envp)
 {
-    int i = 0;
-    char **new_env;
+	int		i;
+	char	**new_env;
 
-    while (envp[i])
-        i++;
-    new_env = malloc((i + 1) * sizeof(char *));
-    if (!new_env)
-        return NULL;
-    i = 0;
-    while (envp[i])
-    {
-        new_env[i] = ft_strdup(envp[i]);
-        i++;
-    }
-    new_env[i] = NULL;
-    return new_env;
+	i = 0;
+	while (envp[i])
+		i++;
+	new_env = malloc((i + 1) * sizeof(char *));
+	if (!new_env)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		new_env[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
 }

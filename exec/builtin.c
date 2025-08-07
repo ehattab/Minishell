@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:29:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/04 17:02:25 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:52:48 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	builtin_cd(char **cmd)
 	return (0);
 }
 
-int	builtin_pwd()
+int	builtin_pwd(void)
 {
 	char	*pwd;
 

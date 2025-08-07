@@ -14,6 +14,11 @@ exec/builtin1.c\
 parsing/error.c \
 parsing/expander.c \
 parsing/utils_expander.c \
+exec/signaux.c\
+exec/builtin2.c\
+exec/redirection1.c\
+parsing/error1.c\
+parsing/expender1.c\
 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell

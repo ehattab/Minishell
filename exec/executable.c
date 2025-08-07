@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/04 17:13:39 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:57:43 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	exec_cmd(t_commands *cmd, char **envp)
 	int		status;
 
 	if (count_cmd(cmd) != 1)
-		return exec_all_cmd(cmd, envp);
+		return (exec_all_cmd(cmd, envp));
 	if (!has_redirection(cmd) && is_builtin(cmd))
 	{
 		builtin_exec(cmd, envp);

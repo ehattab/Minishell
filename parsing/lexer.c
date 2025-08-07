@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 19:16:19 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/19 18:48:41 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:54:43 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*lexer(char *str)
 		while (l->str[l->i] == ' ' || l->str[l->i] == '\t')
 			l->i++;
 		if (!l->str[l->i])
-			break;
+			break ;
 		tokenize_next(&tokens, l);
 		if (l->error_flag)
 			return (NULL);
@@ -36,7 +36,7 @@ t_token	*lexer(char *str)
 void	tokenize_next(t_token **t, t_lexer *l)
 {
 	if (l->error_flag)
-		return;
+		return ;
 	if (l->str[l->i] == '\'')
 		tokenize_quotes(t, l, SIMPLE_QUOTES);
 	else if (l->str[l->i] == '|')
@@ -63,7 +63,7 @@ void	tokenize_append(t_token **t, t_lexer *l, int type)
 
 void	tokenize_heredoc(t_token **t, t_lexer *l, int type)
 {
-		add_token(t, ft_strdup("<<"), type);
+	add_token(t, ft_strdup("<<"), type);
 	l->i += 2;
 }
 

@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:29:04 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/04 18:27:55 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:53:37 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	tokenize_quotes(t_token **t, t_lexer *l, int type)
 		l->error_flag = 1;
 		return ;
 	}
-	add_token(t, ft_substr(l->str, l->i + 1, j- l->i - 1), WORD);
+	add_token(t, ft_substr(l->str, l->i + 1, j - l->i - 1), WORD);
 	l->i = j + 1;
 	return ;
 }
@@ -69,9 +69,8 @@ void	tokenize_word(t_token **t, t_lexer *l, int type)
 
 	start = l->i;
 	while (l->str[l->i] && l->str[l->i] != '|' && l->str[l->i] != '\''
-	&& l->str[l->i] != '\"' && l->str[l->i] != '<' 
-	&& l->str[l->i] != '>'
-	&& l->str[l->i] != ' ' && l->str[l->i] != '\t')
+		&& l->str[l->i] != '\"' && l->str[l->i] != '<' && l->str[l->i] != '>'
+		&& l->str[l->i] != ' ' && l->str[l->i] != '\t')
 		l->i++;
 	add_token(t, ft_substr(l->str, start, l->i - start), type);
 }
