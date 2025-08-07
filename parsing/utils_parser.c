@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:22:00 by ehattab           #+#    #+#             */
-/*   Updated: 2025/06/16 19:15:29 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:01:36 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	print_cmds(t_commands **head)
 		r = tmp->redirections;
 		while (r)
 		{
-			printf("redirections : file = %s, type = %d\n",
-			r->file, r->type);
+			printf("redirections : file = %s, type = %d\n", r->file, r->type);
 			r = r->next;
 		}
 		printf("num redir = %d\n", tmp->num_redirections);
