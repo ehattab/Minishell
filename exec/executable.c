@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executable.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/04 17:13:39 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/08 19:03:34 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,39 @@ int	count_cmd(t_commands *cmd)
 	return (count);
 }
 
-void	exec_cmd(t_commands *cmd, char **envp)
+void	exec_cmd(t_commands *cmd, char **envp, t_context *ctx)
 {
 	pid_t	pid;
 	int		status;
 
 	if (count_cmd(cmd) != 1)
-		return exec_all_cmd(cmd, envp);
+		return (exec_all_cmd(cmd, envp, ctx));
 	if (!has_redirection(cmd) && is_builtin(cmd))
 	{
-		builtin_exec(cmd, envp);
+		builtin_exec(cmd, envp, ctx);
 		return ;
 	}
 	pid = fork();
 	if (pid == 0)
 	{
 		parsing_redir(cmd);
-		if (builtin_exec(cmd, envp))
-			exit (0);
-		exec_all_cmd(cmd, envp);
-		exit (1);
+		if (builtin_exec(cmd, envp, ctx))
+			exit(ctx->last_status);
+		exec_all_cmd(cmd, envp, ctx);
+		exit(1);
 	}
 	else if (pid > 0)
+	{
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			ctx->last_status = WEXITSTATUS(status);
+		else
+			ctx->last_status = 1;
+	}
 	else
 		perror("fork");
 }
+
 
 void	exec_single_cmd(t_commands *cmd, char **envp)
 {

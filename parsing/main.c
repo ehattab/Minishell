@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/04 18:09:07 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/08 19:26:56 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	main(int ac, char **av, char **envp)
         {
             cmds = parser(tokens);
             if (cmds != NULL)
-                exec_cmd(cmds, ctx.env);
-            ctx.last_status = 0;
+                exec_cmd(cmds, ctx.env, &ctx);
+            // ctx.last_status = 0;
         }
         else
             ctx.last_status = error_status;

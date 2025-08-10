@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/04 18:40:59 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/08 19:05:56 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void		free_redirection(t_redir **head);
 void		free_tab(char **tab);
 t_token	*expander(t_token *tokens, t_context *ctx);
 char	*ft_getenv(char *name, t_context *ctx);
-char    **copy_env(char **envp);
+char	**copy_env(char **envp);
 char	*handle_dollar(char *val, int i, t_context *ctx, int *new_i);
 char	*extract_var_name(char *str, int index, int *new_index);
 char	*expand_token_value(char *val, t_context *ctx);
@@ -130,20 +130,21 @@ void	remove_empty_tokens(t_token **tokens);
 
 int			check_n_option(const char *str);
 int			builtin_echo(char **args);
-int			builtin_exec(t_commands *cmd, char **envp);
+int			builtin_exec(t_commands *cmd, char **envp, t_context *ctx);
 int			builtin_cd(char **cmd);
 int			builtin_pwd(void);
 void		parsing_redir(t_commands *cmd);
 void		handle_redir_in(char *value);
 void		handle_redir_out(char *value);
 int			count_cmd(t_commands *cmd);
-void		exec_cmd(t_commands *cmd, char **envp);
+void		exec_cmd(t_commands *cmd, char **envp, t_context *ctx);
 char		*get_path(char *str, char **envp);
 char		*find_cmd(char *cmd, char **envp, t_commands *str);
 void		ft_free(char **str);
-void		exec_all_cmd(t_commands *cmd, char **envp);
+void		exec_all_cmd(t_commands *cmd, char **envp, t_context *ctx);
 void		exec_single_cmd(t_commands *cmd, char **envp);
-void		exec_child(t_commands *cmd, int prev_fd, int *pipe_fd, char **envp);
+void		exec_child(t_commands *cmd, int prev_fd, int *pipe_fd,
+char		**envp, t_context *ctx);
 int			builtin_env(char **envp);
 int			builtin_exit(char **args);
 int			is_numeric_argument(char *str);
