@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:21 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 18:47:32 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/11 17:07:18 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	handle_parent(int *prev_fd, int *pipe_fd, t_commands *cmd)
 
 void	exec_child(t_commands *cmd, int prev_fd, int *pipe_fd, char **envp)
 {
+	if (ft_strchr(cmd->args[0], '/'))
+		execve(cmd->args[0], cmd->args, envp);
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);

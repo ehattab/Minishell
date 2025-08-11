@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 19:07:12 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/11 17:09:56 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,6 @@ void	exec_cmd(t_commands *cmd, char **envp)
 		perror("fork");
 }
 
-void	exec_single_cmd(t_commands *cmd, char **envp)
-{
-	char	*path;
-
-	path = find_cmd(cmd->args[0], envp, cmd);
-	if (!path)
-	{
-		perror("command not found : ");
-		return ;
-	}
-	if (execve(path, cmd->args, envp) == -1)
-	{
-		perror("execve");
-		exit(1);
-	}
-}
 
 char	*get_path(char *str, char **env)
 {
