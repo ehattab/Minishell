@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:21 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/08 19:56:24 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:01:58 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,17 @@ void	exec_all_cmd(t_commands *cmd, char **envp, t_context *ctx)
 		}
 		cmd = cmd->next;
 	}
-	while (wait(&status) > 0)
+	while (waitpid(-1, NULL, 0) > 0)
+		;
+	if (last_pid != -1 && waitpid(last_pid, &status, 0) > 0)
 	{
-		if (last_pid != -1 && last_pid == waitpid(-1, &status, WNOHANG) && WIFEXITED(status))
+		if (WIFEXITED(status))
 			ctx->last_status = WEXITSTATUS(status);
+		else
+			ctx->last_status = 1;
 	}
 }
+
 
 void	exec_child(t_commands *cmd, int prev_fd, int *pipe_fd, char **envp, t_context *ctx)
 {

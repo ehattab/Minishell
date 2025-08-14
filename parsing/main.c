@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/08 19:26:56 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/14 16:15:22 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	main(int ac, char **av, char **envp)
     t_commands  *cmds;
     t_context   ctx;
 
-    if (ac != 1)
+	if (ac != 1)
     {
         ft_putendl_fd("This program does not take any arguments", 2);
-        exit(1);
-    }
-    (void)av;
+		exit(1);
+	}
+	(void)av;
 
     ctx.last_status = 0;
     ctx.env = copy_env(envp);

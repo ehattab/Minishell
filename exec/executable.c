@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/08 19:03:34 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:04:57 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exec_cmd(t_commands *cmd, char **envp, t_context *ctx)
 		parsing_redir(cmd);
 		if (builtin_exec(cmd, envp, ctx))
 			exit(ctx->last_status);
-		exec_all_cmd(cmd, envp, ctx);
+		exec_child(cmd, -1, NULL, envp, ctx);
 		exit(1);
 	}
 	else if (pid > 0)
@@ -57,7 +57,6 @@ void	exec_cmd(t_commands *cmd, char **envp, t_context *ctx)
 	else
 		perror("fork");
 }
-
 
 void	exec_single_cmd(t_commands *cmd, char **envp)
 {
