@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:21 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/18 19:37:48 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/18 19:56:47 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void    exec_all_cmd(t_commands *cmd, char **envp, t_context *ctx)
         }
         cmd = cmd->next;
     }
-
-    // D'abord le dernier (code du pipe selon bash)
     if (last_pid != -1) {
         waitpid(last_pid, &status, 0);
         if (WIFEXITED(status))
@@ -46,7 +44,6 @@ void    exec_all_cmd(t_commands *cmd, char **envp, t_context *ctx)
         else
             ctx->last_status = 1;
     }
-    // Puis on “récolte” les autres
     while (wait(NULL) > 0) {;}
 }
 

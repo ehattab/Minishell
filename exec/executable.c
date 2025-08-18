@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/18 19:45:11 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/18 19:56:53 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void    exec_cmd(t_commands *cmd, char **envp, t_context *ctx)
 
     pid = fork();
     if (pid == 0) {
-        // enfant : exécuter UNE commande et sortir avec le vrai code
         exec_child_single(cmd, envp, ctx);
     } else if (pid > 0) {
         waitpid(pid, &status, 0);
