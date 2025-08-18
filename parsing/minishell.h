@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/08 19:05:56 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/18 19:34:40 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <time.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <errno.h>
 
 enum	e_token_type
 {
@@ -158,5 +159,6 @@ int			is_valid_varname(char *str);
 char		*get_var_name(char *arg);
 void		set_var_env(char *arg, char **envp);
 int			builtin_export(char **args, char **envp);
+void		exec_child_single(t_commands *cmd, char **envp, t_context *ctx);
 
 #endif
