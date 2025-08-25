@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expender1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:43 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 16:40:49 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/25 14:01:45 by tony             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,20 @@ char	*strjoin_and_free(char *s1, char *s2)
 	return (res);
 }
 
-t_token	*expander(t_token *tokens, t_context *ctx)
+t_token *expander(t_token *tokens, t_context *ctx)
 {
-	t_token	*tmp;
+    t_token *tmp = tokens;
 
-	tmp = tokens;
-	while (tmp)
-	{
-		if (tmp->type == WORD && ft_strchr(tmp->value, '$'))
-			tmp->value = expand_token_value(tmp->value, ctx);
-		tmp = tmp->next;
-	}
-	remove_empty_tokens(&tokens);
-	return (tokens);
+    while (tmp)
+    {
+        if ((tmp->type == WORD || tmp->type == DBL_QUOTES) 
+            && ft_strchr(tmp->value, '$'))
+        {
+            tmp->value = expand_token_value(tmp->value, ctx);
+        }
+        tmp = tmp->next;
+    }
+
+    remove_empty_tokens(&tokens);
+    return tokens;
 }

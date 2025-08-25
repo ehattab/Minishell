@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signaux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:41:48 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 19:11:10 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:32:16 by tony             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	process_input(char *str, t_context *ctx)
 	{
 		cmds = parser(tokens);
 		if (cmds)
-			exec_cmd(cmds, ctx->env);
+			exec_cmd(cmds, ctx->env, ctx);
 		ctx->last_status = 0;
 	}
 	else

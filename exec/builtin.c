@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:29:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/11 15:54:14 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:27:48 by tony             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parsing/minishell.h"
 
-int	builtin_exec(t_commands *cmd, char **envp)
+int	builtin_exec(t_commands *cmd, char **envp, t_context *ctx)
 {
 	if (!cmd || !cmd->args[0] || !cmd->args)
 		return (0);
 	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-		return (builtin_echo(cmd->args), 1);
+		return (ctx->last_status = builtin_echo(cmd->args), 1);
 	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
-		return (builtin_cd(cmd->args), 1);
+		return (ctx->last_status = builtin_cd(cmd->args), 1);
 	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-		return (builtin_pwd(), 1);
+		return (ctx->last_status = builtin_pwd(), 1);
 	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		return (builtin_exit(cmd->args), 1);
+		return (ctx->last_status = builtin_exit(cmd->args), 1);
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
-		return (builtin_unset(cmd->args, envp), 1);
+		return (ctx->last_status = builtin_unset(cmd->args, envp), 1);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-		return (builtin_export(cmd->args, envp), 1);
+		return (ctx->last_status = builtin_export(cmd->args, envp), 1);
 	return (0);
 }
 
