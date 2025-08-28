@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/25 13:31:45 by tony             ###   ########.fr       */
+/*   Updated: 2025/08/28 16:19:51 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <time.h>
 # include <unistd.h>
 # include <errno.h>
+# include <sys/stat.h>
 
 enum					e_token_type
 {
@@ -163,7 +164,7 @@ void					init_signals(void);
 void					handle_sigint(int sig);
 void					process_input(char *str, t_context *ctx);
 void					minishell_loop(t_context *ctx);
-// void					wait_for_all(void);
+// void					wait_for_all(t_context *ctx);
 // void					handle_parent(int *prev_fd, int *pipe_fd,
 // 							t_commands *cmd);
 void					handle_while(int fd, char *delimeter);

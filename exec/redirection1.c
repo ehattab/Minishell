@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:06:32 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/07 19:11:17 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/28 15:52:27 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	append_redir(char *value)
 	fd = open(value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		perror("open");
-		return ;
+		perror(value);
+		exit(1);
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		perror("dup2");
 		close(fd);
-		return ;
+		exit (1);
 	}
 	close(fd);
 }
