@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/25 13:31:45 by tony             ###   ########.fr       */
+/*   Updated: 2025/08/29 21:27:24 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ char					*expend_value_while(char *val, char *result,
 							t_context *ctx);
 char					*handle_dollar_case(char *val, int i, t_context *ctx,
 							int *new_i);
+void					debug_tokens(t_token *tokens);
 
 // exec
 int						check_n_option(const char *str);

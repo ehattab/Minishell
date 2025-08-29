@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:23:53 by ehattab           #+#    #+#             */
-/*   Updated: 2025/07/03 21:01:17 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/29 21:26:54 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,24 @@ t_token	*last_token(t_token **head)
 		tmp = tmp->next;
 	}
 	return (tmp);
+}
+
+void debug_tokens(t_token *tokens)
+{
+    t_token *tmp = tokens;
+    int i = 0;
+    printf("=== DEBUG TOKENS ===\n");
+    while (tmp)
+    {
+        printf("Token[%d]: '%s' | Type: %d ", i++, tmp->value, tmp->type);
+        switch(tmp->type) {
+            case WORD: printf("(WORD)\n"); break;
+            case SIMPLE_QUOTES: printf("(SIMPLE_QUOTES)\n"); break;
+            case DBL_QUOTES: printf("(DBL_QUOTES)\n"); break;
+            case PIPE: printf("(PIPE)\n"); break;
+            default: printf("(OTHER)\n"); break;
+        }
+        tmp = tmp->next;
+    }
+    printf("==================\n");
 }

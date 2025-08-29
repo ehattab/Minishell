@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expender1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:43 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/25 14:01:45 by tony             ###   ########.fr       */
+/*   Updated: 2025/08/29 21:36:39 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,23 @@ char	*expand_token_value(char *val, t_context *ctx)
 	return (result);
 }
 
-char	*expend_value_while(char *val, char *result, t_context *ctx)
+char *expend_value_while(char *val, char *result, t_context *ctx)
 {
-	int		i;
-	int		new_i;
-	char	*tmp;
-
-	i = 0;
-	while (val[i])
-	{
-		if (val[i] == '\'' && val[i + 1])
-			tmp = handle_single_quote(val, i, &new_i);
-		else if (val[i] == '$')
-			tmp = handle_dollar_case(val, i, ctx, &new_i);
-		else
-			tmp = handle_char(val, i, &new_i);
-		result = strjoin_and_free(result, tmp);
-		i = new_i;
-	}
-	return (result);
+    int i;
+    int new_i;
+    char *tmp;
+    
+    i = 0;
+    while (val[i])
+    {
+        if (val[i] == '$')
+            tmp = handle_dollar_case(val, i, ctx, &new_i);
+        else
+            tmp = handle_char(val, i, &new_i);
+        result = strjoin_and_free(result, tmp);
+        i = new_i;
+    }
+    return (result);
 }
 
 char	*handle_dollar_case(char *val, int i, t_context *ctx, int *new_i)
@@ -70,17 +68,20 @@ char	*strjoin_and_free(char *s1, char *s2)
 t_token *expander(t_token *tokens, t_context *ctx)
 {
     t_token *tmp = tokens;
-
     while (tmp)
     {
-        if ((tmp->type == WORD || tmp->type == DBL_QUOTES) 
-            && ft_strchr(tmp->value, '$'))
-        {
+        if (tmp->type == WORD && ft_strchr(tmp->value, '$'))
             tmp->value = expand_token_value(tmp->value, ctx);
+        else if (tmp->type == DBL_QUOTES)
+        {
+            if (ft_strchr(tmp->value, '$'))
+                tmp->value = expand_token_value(tmp->value, ctx);
+            tmp->type = WORD;
         }
+        else if (tmp->type == SIMPLE_QUOTES)
+            tmp->type = WORD;
         tmp = tmp->next;
     }
-
     remove_empty_tokens(&tokens);
     return tokens;
 }

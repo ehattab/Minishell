@@ -3,50 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:01:46 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/25 14:20:23 by tony             ###   ########.fr       */
+/*   Updated: 2025/08/29 21:32:03 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_commands	*parser(t_token *input_tokens)
+t_commands *parser(t_token *input_tokens)
 {
-	t_token		*tokens;
-	t_commands	*cmds;
-	t_commands	*new;
-
-	cmds = NULL;
-	tokens = input_tokens;
-	while (tokens)
-	{
-		new = malloc(sizeof(t_commands));
-		new->args = NULL;
-		new->num_redirections = 0;
-		new->redirections = NULL;
-		new->next = NULL;
-		new->prev = NULL;
-		while (tokens && tokens->type != PIPE)
-		{
-			if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
-				|| tokens->type == REDIR_APPEND || tokens->type == HEREDOC)
-			{
-				add_redirection(&new, tokens);
-				tokens = tokens->next;
-			}
-			else if (tokens->type == WORD)
-			{
-				new->args = add_word(new->args, tokens->value);
-			}
-			tokens = tokens->next;
-		}
-		add_command(&cmds, new);
-		if (tokens && tokens->type == PIPE)
-			tokens = tokens->next;
-	}
-	return (cmds);
+    t_token *tokens;
+    t_commands *cmds;
+    t_commands *new;
+    
+    cmds = NULL;
+    tokens = input_tokens;
+    while (tokens)
+    {
+        new = malloc(sizeof(t_commands));
+        new->args = NULL;
+        new->num_redirections = 0;
+        new->redirections = NULL;
+        new->next = NULL;
+        new->prev = NULL;
+        new->path = NULL;
+        while (tokens && tokens->type != PIPE)
+        {
+            if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
+                || tokens->type == REDIR_APPEND || tokens->type == HEREDOC)
+            {
+                add_redirection(&new, tokens);
+                tokens = tokens->next;
+            }
+            else if (tokens->type == WORD || tokens->type == SIMPLE_QUOTES 
+                     || tokens->type == DBL_QUOTES)
+            {
+                new->args = add_word(new->args, tokens->value);
+            }
+            tokens = tokens->next;
+        }
+        add_command(&cmds, new);
+        if (tokens && tokens->type == PIPE)
+            tokens = tokens->next;
+    }
+    return (cmds);
 }
 
 void	add_redirection(t_commands **cmd, t_token *token)
