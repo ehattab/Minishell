@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:29:04 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 15:29:52 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/30 18:08:47 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,29 @@ void	tokenize_pipe(t_token **t, t_lexer *l, int type)
 	add_token(t, ft_strdup("|"), type);
 }
 
-void tokenize_word(t_token **t, t_lexer *l, int type)
+void	tokenize_word(t_token **t, t_lexer *l, int type)
 {
-    char *word;
-    t_quote_info info;
-    
-    if (l->error_flag)
-        return ;
-    word = build_word_content(l, &info);
-    if (!word)
-    {
-        if (!l->error_flag)
-            l->error_flag = 1;
-        return ;
-    }
-    if (word[0])
-    {
-        if (info.has_multiple_parts)
-            add_token(t, word, WORD);
-        else if (info.has_simple_quotes)
-            add_token(t, word, SIMPLE_QUOTES);
-        else
-            add_token(t, word, type);
-    }
-    else
-        free(word);
+	char			*word;
+	t_quote_info	info;
+
+	if (l->error_flag)
+		return ;
+	word = build_word_content(l, &info);
+	if (!word)
+	{
+		if (!l->error_flag)
+			l->error_flag = 1;
+		return ;
+	}
+	if (word[0] || (word[0] == '\0' && info.has_simple_quotes))
+	{
+		if (info.has_multiple_parts)
+			add_token(t, word, WORD);
+		else if (info.has_simple_quotes)
+			add_token(t, word, SIMPLE_QUOTES);
+		else
+			add_token(t, word, type);
+	}
+	else
+		free(word);
 }

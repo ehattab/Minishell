@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:01:46 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 14:50:57 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/30 18:04:17 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_commands	*parser(t_token *input_tokens)
 	while (tokens)
 	{
 		new = malloc(sizeof(t_commands));
+		if (!new)
+			return (NULL);
 		new->args = NULL;
 		new->num_redirections = 0;
 		new->redirections = NULL;
@@ -34,14 +36,21 @@ t_commands	*parser(t_token *input_tokens)
 			if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
 				|| tokens->type == REDIR_APPEND || tokens->type == HEREDOC)
 			{
+				if (!tokens->next || tokens->next->type != WORD)
+				{
+					free_cmds(&cmds);
+					return (NULL);
+				}
 				add_redirection(&new, tokens);
-				tokens = tokens->next;
+				tokens = tokens->next->next;
 			}
 			else if (tokens->type == WORD)
 			{
 				new->args = add_word(new->args, tokens->value);
+				tokens = tokens->next;
 			}
-			tokens = tokens->next;
+			else
+				tokens = tokens->next;
 		}
 		add_command(&cmds, new);
 		if (tokens && tokens->type == PIPE)

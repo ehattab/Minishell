@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 22:08:16 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 15:30:04 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/30 18:09:07 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,46 +47,55 @@ int	is_word_delimiter(char c)
 		|| c == '<' || c == '>');
 }
 
-char *build_word_content(t_lexer *l, t_quote_info *info)
+char	*build_word_content(t_lexer *l, t_quote_info *info)
 {
-    char *word;
-    char *temp;
-    int part_count;
-    
-    word = ft_strdup("");
-    info->has_simple_quotes = 0;
-    info->has_multiple_parts = 0;
-    part_count = 0;
-    if (!word)
-        return (NULL);
-    while (l->str[l->i] && !is_word_delimiter(l->str[l->i]))
-    {
-        if (l->str[l->i] == '\'')
-        {
-            temp = handle_quote_segment(l, SIMPLE_QUOTES);
-            info->has_simple_quotes = 1;
-            part_count++;
-        }
-        else if (l->str[l->i] == '\"')
-        {
-            temp = handle_quote_segment(l, DBL_QUOTES);
-            part_count++;
-        }
-        else
-        {
-            temp = handle_char_segment(l);
-            part_count++;
-        }
-        if (!temp)
-        {
-            free(word);
-            return (NULL);
-        }
-        word = strjoin_and_free(word, temp);
-        if (!word)
-            return (NULL);
-    }
-    if (part_count > 1)
-        info->has_multiple_parts = 1;
-    return (word);
+	char	*word;
+	char	*temp;
+	int		part_count;
+
+	word = ft_strdup("");
+	if (!word)
+		return (NULL);
+	info->has_simple_quotes = 0;
+	info->has_multiple_parts = 0;
+	part_count = 0;
+	while (l->str[l->i] && !is_word_delimiter(l->str[l->i]))
+	{
+		if (l->str[l->i] == '\'')
+		{
+			temp = handle_quote_segment(l, SIMPLE_QUOTES);
+			info->has_simple_quotes = 1;
+			part_count++;
+		}
+		else if (l->str[l->i] == '\"')
+		{
+			temp = handle_quote_segment(l, DBL_QUOTES);
+			part_count++;
+		}
+		else
+		{
+			temp = handle_char_segment(l);
+			part_count++;
+		}
+		if (!temp)
+		{
+			if (l->error_flag)
+			{
+				free(word);
+				return (NULL);
+			}
+			temp = ft_strdup("");
+		}
+		if (!temp)
+		{
+			free(word);
+			return (NULL);
+		}
+		word = strjoin_and_free(word, temp);
+		if (!word)
+			return (NULL);
+	}
+	if (part_count > 1)
+		info->has_multiple_parts = 1;
+	return (word);
 }

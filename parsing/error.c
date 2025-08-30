@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:56:49 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/07 16:44:49 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/30 18:11:04 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 int	print_syntax_error(char *token)
 {
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	if (!token)
-		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'",
-			2);
+		ft_putstr_fd("newline", 2);
 	else
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 		ft_putstr_fd(token, 2);
-		ft_putendl_fd("'", 2);
-	}
+	ft_putendl_fd("'", 2);
 	return (2);
 }
 
@@ -44,11 +41,16 @@ char	*check_redirection_token(t_token *t)
 	if (t->type < REDIR_IN || t->type > HEREDOC)
 		return (NULL);
 	if (!t->next)
-		return (NULL);
+		return ("newline");
 	if (t->next->type == PIPE)
 		return ("|");
 	if (t->next->type >= REDIR_IN && t->next->type <= HEREDOC)
-		return (t->next->value ? t->next->value : NULL);
+	{
+		if (t->next->value)
+			return (t->next->value);
+		else
+			return ("newline");
+	}
 	return (NULL);
 }
 

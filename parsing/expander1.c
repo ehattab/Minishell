@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:43 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/30 15:21:23 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/30 18:10:03 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*expend_value_while(char *val, char *result, t_context *ctx)
 char	*handle_dollar_case(char *val, int i, t_context *ctx, int *new_i)
 {
 	if (!val[i + 1] || (!ft_isalnum(val[i + 1])
-			&& val[i + 1] != '_' && val[i + 1] != '?'))
+		&& val[i + 1] != '_' && val[i + 1] != '?'))
 	{
 		*new_i = i + 1;
 		return (ft_strdup("$"));
@@ -65,27 +65,25 @@ char	*strjoin_and_free(char *s1, char *s2)
 	return (res);
 }
 
-t_token *expander(t_token *tokens, t_context *ctx)
+t_token	*expander(t_token *tokens, t_context *ctx)
 {
-    t_token *tmp;
-    
-    tmp = tokens;
-    while (tmp)
-    {
-        if (tmp->type == WORD && ft_strchr(tmp->value, '$'))
-            tmp->value = expand_token_value(tmp->value, ctx);
-        else if (tmp->type == DBL_QUOTES)
-        {
-            if (ft_strchr(tmp->value, '$'))
-                tmp->value = expand_token_value(tmp->value, ctx);
-            tmp->type = WORD;
-        }
-        else if (tmp->type == SIMPLE_QUOTES)
-        {
-            tmp->type = WORD;
-        }
-        tmp = tmp->next;
-    }
-    remove_empty_tokens(&tokens);
-    return (tokens);
+	t_token	*tmp;
+
+	tmp = tokens;
+	while (tmp)
+	{
+		if (tmp->type == WORD && tmp->value && ft_strchr(tmp->value, '$'))
+			tmp->value = expand_token_value(tmp->value, ctx);
+		else if (tmp->type == DBL_QUOTES)
+		{
+			if (tmp->value && ft_strchr(tmp->value, '$'))
+				tmp->value = expand_token_value(tmp->value, ctx);
+			tmp->type = WORD;
+		}
+		else if (tmp->type == SIMPLE_QUOTES)
+			tmp->type = WORD;
+		tmp = tmp->next;
+	}
+	remove_empty_tokens(&tokens);
+	return (tokens);
 }
