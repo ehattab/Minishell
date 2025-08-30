@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/29 21:27:24 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/08/30 15:28:32 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ typedef struct s_token
 	struct s_token		*prev;
 }						t_token;
 
+typedef struct	s_quote_info
+{
+	int				has_simple_quotes;
+	int				has_multiple_parts;
+}					t_quote_info;
+
 typedef struct s_redir
 {
 	int					type;
@@ -89,7 +95,7 @@ typedef struct s_context
 	int					last_status;
 }						t_context;
 
-// parseur
+// parser
 void					free_all(char *str, t_token *t, t_commands *commands);
 t_token					*create_token(char *str, enum e_token_type type);
 void					add_token(t_token **head, char *str,
@@ -136,6 +142,10 @@ char					*expend_value_while(char *val, char *result,
 char					*handle_dollar_case(char *val, int i, t_context *ctx,
 							int *new_i);
 void					debug_tokens(t_token *tokens);
+char					*handle_quote_segment(t_lexer *l, int quote_type);
+char					*handle_char_segment(t_lexer *l);
+int						is_word_delimiter(char c);
+char					*build_word_content(t_lexer *l, t_quote_info *info);
 
 // exec
 int						check_n_option(const char *str);
@@ -170,50 +180,12 @@ void					minishell_loop(t_context *ctx);
 void					handle_while(int fd, char *delimeter);
 int						check_double_operators(t_token *t);
 int						check_heredoc_syntax(t_token *t);
-char					*handle_single_quote(char *val, int i, int *new_i);
+// char					*handle_single_quote(char *val, int i, int *new_i);
 char					*handle_char(char *val, int i, int *new_i);
 void					reset_signal_exec(void);
 void					wait_for_single(pid_t pid);
 void					ignore_parent_signals(void);
 void					parent_wait_and_handle_signal(pid_t pid);
-void		free_all(char *str, t_token *t, t_commands *commands);
-t_token		*create_token(char *str, enum e_token_type type);
-void		add_token(t_token **head, char *str, enum e_token_type type);
-void		print_token(t_token **head);
-void		free_token(t_token **head);
-t_token		*lexer(char *str);
-void		initialise_lexer(char *str, t_lexer **l, t_token **tokens);
-t_token		*last_token(t_token **head);
-void		tokenize_next(t_token **t, t_lexer *l);
-int			end_quotes(t_lexer *l, int e);
-void		tokenize_quotes(t_token **t, t_lexer *l, int type);
-void		tokenize_pipe(t_token **t, t_lexer *l, int type);
-void		tokenize_word(t_token **t, t_lexer *l, int type);
-void		tokenize_append(t_token **t, t_lexer *l, int type);
-void		tokenize_heredoc(t_token **t, t_lexer *l, int type);
-void		tokenize_redir(t_token **t, t_lexer *l, int type);
-int			handle_error(t_token *tokens);
-int			check_syntax(t_token *tokens);
-int			check_disallowed_token(t_token *t);
-char 		*check_redirection_token(t_token *t);
-char 		*check_pipe_syntax(t_token *t);
-int			print_syntax_error(char *token);
-t_commands	*parser(t_token *input_tokens);
-void		add_command(t_commands **head, t_commands *new);
-void		add_redirection(t_commands **cmd, t_token *token);
-char		**add_word(char **array, char *str);
-void		print_cmds(t_commands **head);
-void		free_cmds(t_commands **head);
-void		free_redirection(t_redir **head);
-void		free_tab(char **tab);
-t_token	*expander(t_token *tokens, t_context *ctx);
-char	*ft_getenv(char *name, t_context *ctx);
-char	**copy_env(char **envp);
-char	*handle_dollar(char *val, int i, t_context *ctx, int *new_i);
-char	*extract_var_name(char *str, int index, int *new_index);
-char	*expand_token_value(char *val, t_context *ctx);
-char	*strjoin_and_free(char *s1, char *s2);
-void	remove_empty_tokens(t_token **tokens);
 
 int			check_n_option(const char *str);
 int			builtin_echo(char **args);
