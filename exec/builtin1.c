@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:47:02 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/11 16:00:27 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/28 16:27:14 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int	is_numeric_argument(char *str)
 {
 	int	i;
 
-	i = 0;
-	if (!str)
+	if (!str || !*str)
 		return (0);
+	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -34,19 +36,20 @@ int	builtin_exit(char **args)
 {
 	int	exit_code;
 
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (isatty(STDIN_FILENO))
+		ft_putendl_fd("exit", STDERR_FILENO);
 	if (!args[1])
 		exit(0);
 	if (!is_numeric_argument(args[1]))
 	{
-		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd("exit: ", STDERR_FILENO);
 		ft_putstr_fd(args[1], STDERR_FILENO);
-		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+		ft_putendl_fd(" numeric argument required", STDERR_FILENO);
 		exit(2);
 	}
 	if (args[2])
 	{
-		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
+		ft_putendl_fd(" too many arguments", STDERR_FILENO);
 		return (1);
 	}
 	exit_code = ft_atoi(args[1]);

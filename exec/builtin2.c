@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:55:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/11 15:54:32 by toroman          ###   ########.fr       */
+/*   Updated: 2025/08/28 15:38:15 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ void	set_var_env(char *arg, char **envp)
 
 int	builtin_export(char **args, char **envp)
 {
-	int	i;
+	int		i;
+	int		status;
 
+	status = 0;
 	if (!args[1])
 		return (0);
 	i = 1;
@@ -99,10 +101,11 @@ int	builtin_export(char **args, char **envp)
 			ft_putstr_fd("export: `", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putendl_fd("`: not a valid identifier", 2);
+			status = 1;
 		}
 		else
 			set_var_env(args[i], envp);
 		i++;
 	}
-	return (0);
+	return (status);
 }

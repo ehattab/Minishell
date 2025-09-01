@@ -6,7 +6,7 @@
 /*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 15:28:32 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:01:58 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <time.h>
 # include <unistd.h>
 # include <errno.h>
+# include <sys/stat.h>
 
 enum					e_token_type
 {
@@ -174,7 +175,7 @@ void					init_signals(void);
 void					handle_sigint(int sig);
 void					process_input(char *str, t_context *ctx);
 void					minishell_loop(t_context *ctx);
-// void					wait_for_all(void);
+// void					wait_for_all(t_context *ctx);
 // void					handle_parent(int *prev_fd, int *pipe_fd,
 // 							t_commands *cmd);
 void					handle_while(int fd, char *delimeter);
