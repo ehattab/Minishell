@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:42:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 14:59:34 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:08:12 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,3 @@ char	*handle_char(char *val, int i, int *new_i)
 	*new_i = i + 1;
 	return (ft_strdup(tmp));
 }
-
-// char	*handle_single_quote(char *val, int i, int *new_i)
-// {
-// 	char	tmp[2];
-
-// 	tmp[0] = val[i + 1];
-// 	tmp[1] = '\0';
-// 	*new_i = i + 2;
-// 	return (ft_strdup(tmp));
-// }

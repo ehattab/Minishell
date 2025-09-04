@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:01:46 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 18:04:17 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:21:14 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,14 @@ t_commands	*parser(t_token *input_tokens)
 	tokens = input_tokens;
 	while (tokens)
 	{
-		new = malloc(sizeof(t_commands));
+		new = init_new_command();
 		if (!new)
-			return (NULL);
-		new->args = NULL;
-		new->num_redirections = 0;
-		new->redirections = NULL;
-		new->next = NULL;
-		new->prev = NULL;
-		new->path = NULL;
-		while (tokens && tokens->type != PIPE)
+			return (free_cmds(&cmds), NULL);
+		if (!process_command_tokens(&tokens, new))
 		{
-			if (tokens->type == REDIR_IN || tokens->type == REDIR_OUT
-				|| tokens->type == REDIR_APPEND || tokens->type == HEREDOC)
-			{
-				if (!tokens->next || tokens->next->type != WORD)
-				{
-					free_cmds(&cmds);
-					return (NULL);
-				}
-				add_redirection(&new, tokens);
-				tokens = tokens->next->next;
-			}
-			else if (tokens->type == WORD)
-			{
-				new->args = add_word(new->args, tokens->value);
-				tokens = tokens->next;
-			}
-			else
-				tokens = tokens->next;
+			free_cmds(&cmds);
+			free(new);
+			return (NULL);
 		}
 		add_command(&cmds, new);
 		if (tokens && tokens->type == PIPE)
@@ -102,8 +81,28 @@ void	add_command(t_commands **head, t_commands *new)
 
 char	**add_word(char **array, char *str)
 {
-	int		i;
 	char	**new_array;
+	int		size;
+
+	new_array = copy_existing_array(array, &size);
+	if (!new_array)
+		return (NULL);
+	if (!array)
+	{
+		new_array[0] = ft_strdup(str);
+		new_array[1] = NULL;
+		return (new_array);
+	}
+	new_array[size] = ft_strdup(str);
+	new_array[size + 1] = NULL;
+	free_tab(array);
+	return (new_array);
+}
+
+char	**copy_existing_array(char **array, int *size)
+{
+	char	**new_array;
+	int		i;
 
 	i = 0;
 	if (array)
@@ -111,26 +110,15 @@ char	**add_word(char **array, char *str)
 		while (array[i])
 			i++;
 	}
+	*size = i;
 	new_array = malloc(sizeof(char *) * (i + 2));
 	if (!new_array)
 		return (NULL);
 	i = 0;
-	if (!array)
+	while (array && array[i])
 	{
-		new_array[0] = ft_strdup(str);
-		new_array[1] = NULL;
-		return (new_array);
+		new_array[i] = ft_strdup(array[i]);
+		i++;
 	}
-	else
-	{
-		while (array[i])
-		{
-			new_array[i] = ft_strdup(array[i]);
-			i++;
-		}
-		free_tab(array);
-	}
-	new_array[i] = ft_strdup(str);
-	new_array[i + 1] = NULL;
 	return (new_array);
 }

@@ -20,7 +20,8 @@ exec/redirection1.c\
 parsing/error1.c\
 parsing/expander1.c\
 parsing/tokenize1.c\
-
+exec/utilexec.c\
+parsing/parser1.c\
 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:43 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/30 18:10:03 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:29:22 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char	*expend_value_while(char *val, char *result, t_context *ctx)
 
 char	*handle_dollar_case(char *val, int i, t_context *ctx, int *new_i)
 {
-	if (!val[i + 1] || (!ft_isalnum(val[i + 1])
-		&& val[i + 1] != '_' && val[i + 1] != '?'))
+	if (!val[i + 1] || (!ft_isalnum(val[i + 1]) && val[i + 1] != '_'
+			&& val[i + 1] != '?'))
 	{
 		*new_i = i + 1;
 		return (ft_strdup("$"));

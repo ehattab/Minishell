@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:29:04 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 18:08:47 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:27:56 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ int	end_quotes(t_lexer *l, int type)
 		return (j);
 }
 
-void tokenize_quotes(t_token **t, t_lexer *l, int type)
+void	tokenize_quotes(t_token **t, t_lexer *l, int type)
 {
-    int j;
-    j = end_quotes(l, type);
-    if (j == -1)
-    {
-        l->error_flag = 1;
-        return ;
-    }
-    add_token(t, ft_substr(l->str, l->i + 1, j - l->i - 1), type);
-    l->i = j + 1;
-    return ;
+	int	j;
+
+	j = end_quotes(l, type);
+	if (j == -1)
+	{
+		l->error_flag = 1;
+		return ;
+	}
+	add_token(t, ft_substr(l->str, l->i + 1, j - l->i - 1), type);
+	l->i = j + 1;
+	return ;
 }
 
 void	tokenize_pipe(t_token **t, t_lexer *l, int type)

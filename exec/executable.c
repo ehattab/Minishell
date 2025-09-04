@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executable.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/25 13:28:01 by tony             ###   ########.fr       */
+/*   Updated: 2025/09/04 15:06:29 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,34 @@ int	count_cmd(t_commands *cmd)
 	return (count);
 }
 
-void    exec_cmd(t_commands *cmd, char **envp, t_context *ctx)
+void	exec_cmd(t_commands *cmd, char **envp, t_context *ctx)
 {
-    pid_t   pid;
-    int     status;
+	pid_t	pid;
+	int		status;
 
-    if (count_cmd(cmd) != 1)
-        return (exec_all_cmd(cmd, envp, ctx));
-
-    if (!has_redirection(cmd) && is_builtin(cmd)) {
-        builtin_exec(cmd, envp, ctx);
-        return ;
-    }
-
-    pid = fork();
-    if (pid == 0) {
-        exec_child_single(cmd, envp, ctx);
-    } else if (pid > 0) {
-        waitpid(pid, &status, 0);
-        if (WIFEXITED(status))
-            ctx->last_status = WEXITSTATUS(status);
-        else
-            ctx->last_status = 1;
-    } else {
-        perror("fork");
-    }
+	if (count_cmd(cmd) != 1)
+		return (exec_all_cmd(cmd, envp, ctx));
+	if (!has_redirection(cmd) && is_builtin(cmd))
+	{
+		builtin_exec(cmd, envp, ctx);
+		return ;
+	}
+	pid = fork();
+	if (pid == 0)
+		exec_child_single(cmd, envp, ctx);
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			ctx->last_status = WEXITSTATUS(status);
+		else
+			ctx->last_status = 1;
+	}
+	else
+	{
+		perror("fork");
+	}
 }
-
 
 void	exec_single_cmd(t_commands *cmd, char **envp)
 {
@@ -87,9 +88,6 @@ char	*get_path(char *str, char **env)
 char	*find_cmd(char *cmd, char **env, t_commands *str)
 {
 	char	**path_split;
-	char	*path_join;
-	char	*tmp;
-	int		i;
 
 	if (!cmd)
 		return (NULL);
@@ -105,20 +103,5 @@ char	*find_cmd(char *cmd, char **env, t_commands *str)
 	path_split = ft_split(str->path, ':');
 	if (!path_split)
 		return (NULL);
-	i = 0;
-	while (path_split[i])
-	{
-		tmp = ft_strjoin(path_split[i], "/");
-		path_join = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(path_join, X_OK) == 0)
-		{
-			ft_free(path_split);
-			return (path_join);
-		}
-		free(path_join);
-		i++;
-	}
-	ft_free(path_split);
-	return (NULL);
+	return (search_command_in_paths(cmd, path_split));
 }

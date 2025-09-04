@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 14:47:02 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/28 16:27:14 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/04 14:59:11 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	builtin_exit(char **args)
 	{
 		ft_putstr_fd("exit: ", STDERR_FILENO);
 		ft_putstr_fd(args[1], STDERR_FILENO);
-		ft_putendl_fd(" numeric argument required", STDERR_FILENO);
+		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 		exit(2);
 	}
 	if (args[2])

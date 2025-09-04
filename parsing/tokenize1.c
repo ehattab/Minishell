@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 22:08:16 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 18:09:07 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:27:59 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ char	*handle_char_segment(t_lexer *l)
 
 int	is_word_delimiter(char c)
 {
-	return (c == '|' || c == ' ' || c == '\t'
-		|| c == '<' || c == '>');
+	return (c == '|' || c == ' ' || c == '\t' || c == '<' || c == '>');
 }
 
 char	*build_word_content(t_lexer *l, t_quote_info *info)
@@ -56,42 +55,12 @@ char	*build_word_content(t_lexer *l, t_quote_info *info)
 	word = ft_strdup("");
 	if (!word)
 		return (NULL);
-	info->has_simple_quotes = 0;
-	info->has_multiple_parts = 0;
+	*info = (t_quote_info){0, 0};
 	part_count = 0;
 	while (l->str[l->i] && !is_word_delimiter(l->str[l->i]))
 	{
-		if (l->str[l->i] == '\'')
-		{
-			temp = handle_quote_segment(l, SIMPLE_QUOTES);
-			info->has_simple_quotes = 1;
-			part_count++;
-		}
-		else if (l->str[l->i] == '\"')
-		{
-			temp = handle_quote_segment(l, DBL_QUOTES);
-			part_count++;
-		}
-		else
-		{
-			temp = handle_char_segment(l);
-			part_count++;
-		}
-		if (!temp)
-		{
-			if (l->error_flag)
-			{
-				free(word);
-				return (NULL);
-			}
-			temp = ft_strdup("");
-		}
-		if (!temp)
-		{
-			free(word);
-			return (NULL);
-		}
-		word = strjoin_and_free(word, temp);
+		temp = process_segment(l, info, &part_count);
+		word = handle_segment_result(l, word, temp);
 		if (!word)
 			return (NULL);
 	}
