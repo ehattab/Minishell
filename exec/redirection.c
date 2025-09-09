@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 15:13:41 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/28 15:57:29 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:57:51 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	handle_redir_out(char *value)
 	close(fd);
 }
 
-void	wait_for_single(pid_t pid)
+int	wait_for_single(pid_t pid)
 {
 	int	status;
 	int	sig;
@@ -83,11 +83,19 @@ void	wait_for_single(pid_t pid)
 		else if (sig == SIGINT)
 			write(2, "\n", 1);
 	}
+	return (status);
 }
 
-void	parent_wait_and_handle_signal(pid_t pid)
+void	parent_wait_and_handle_signal(pid_t pid, t_context *ctx)
 {
+	int	status;
+
 	ignore_parent_signals();
-	wait_for_single(pid);
+	status = wait_for_single(pid);
 	reset_signal_exec();
+	
+	if (WIFEXITED(status))
+		ctx->last_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		ctx->last_status = 128 + WTERMSIG(status);
 }

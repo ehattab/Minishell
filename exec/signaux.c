@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signaux.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:41:48 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/25 13:32:16 by tony             ###   ########.fr       */
+/*   Updated: 2025/09/09 12:02:15 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	minishell_loop(t_context *ctx)
 {
 	char	*str;
 
+	init_signals();
 	while (1)
 	{
-		init_signals();
 		str = readline("Minishell :");
 		if (!str)
 		{

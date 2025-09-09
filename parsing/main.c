@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/04 15:16:49 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 12:02:27 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	ctx.last_status = 0;
 	ctx.env = copy_env(envp);
+
+	init_signals();
 	while (1)
 	{
 		str = readline("Minishell :");

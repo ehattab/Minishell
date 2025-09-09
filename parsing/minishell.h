@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/04 15:29:37 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:58:24 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <sys/wait.h>
 # include <time.h>
 # include <unistd.h>
+# include <signal.h>
 
 enum					e_token_type
 {
@@ -200,9 +201,9 @@ int						check_heredoc_syntax(t_token *t);
 // char					*handle_single_quote(char *val, int i, int *new_i);
 char					*handle_char(char *val, int i, int *new_i);
 void					reset_signal_exec(void);
-void					wait_for_single(pid_t pid);
+int						wait_for_single(pid_t pid);
 void					ignore_parent_signals(void);
-void					parent_wait_and_handle_signal(pid_t pid);
+void					parent_wait_and_handle_signal(pid_t pid, t_context *ctx);
 char					*search_command_in_paths(char *cmd, char **path_split);
 void					execute_command(char *path, char **args, char **envp,
 							char *cmd_name);

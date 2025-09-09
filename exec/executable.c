@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/04 15:06:29 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:49:53 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	exec_single_cmd(t_commands *cmd, char **envp)
 {
 	char	*path;
 
+	reset_signal_exec();
 	path = find_cmd(cmd->args[0], envp, cmd);
 	if (!path)
 	{

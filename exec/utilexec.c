@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:37:06 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/04 15:07:49 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:50:36 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ void	execute_command_path(t_commands *cmd, char **envp, char *path)
 	}
 }
 
-void	handle_child_process(t_commands *cmd, t_fds fds, char **envp,
-		t_context *ctx)
+
+void	handle_child_process(t_commands *cmd, t_fds fds, char **envp, t_context *ctx)
 {
+	reset_signal_exec();
 	parsing_redir(cmd);
 	if (fds.prev_fd != -1)
 	{
@@ -97,15 +98,21 @@ void	update_file_descriptors(int *prev_fd, int *pipe_fd, t_commands *cmd)
 void	wait_for_processes(pid_t last_pid, t_context *ctx)
 {
 	int	status;
+	pid_t	pid;
 
+	ignore_parent_signals();
 	if (last_pid != -1)
 	{
 		waitpid(last_pid, &status, 0);
 		if (WIFEXITED(status))
 			ctx->last_status = WEXITSTATUS(status);
-		else
-			ctx->last_status = 1;
+		else if (WIFSIGNALED(status))
+			ctx->last_status = 128 + WTERMSIG(status);
 	}
-	while (wait(NULL) > 0)
-		;
+	while ((pid = wait(NULL)) > 0)
+	{
+		if (pid == last_pid)
+			continue;
+	}
+	reset_signal_exec();
 }

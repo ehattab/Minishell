@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:21 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/04 15:07:01 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 11:38:42 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	exec_child_single(t_commands *cmd, char **envp, t_context *ctx)
 {
 	char	*path;
 
+	reset_signal_exec();
 	parsing_redir(cmd);
 	if (builtin_exec(cmd, envp, ctx))
 		exit(ctx->last_status);
