@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 15:13:41 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 11:57:51 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:41:06 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	parent_wait_and_handle_signal(pid_t pid, t_context *ctx)
 	ignore_parent_signals();
 	status = wait_for_single(pid);
 	reset_signal_exec();
-	
 	if (WIFEXITED(status))
 		ctx->last_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))

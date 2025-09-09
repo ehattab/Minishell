@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/09 15:59:37 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:39:14 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	ctx.last_status = 0;
 	ctx.env = copy_env(envp);
-
 	init_signals();
 	while (1)
 	{
