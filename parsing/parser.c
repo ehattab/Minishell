@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:01:46 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/04 15:21:14 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:16 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,15 @@ void	add_redirection(t_commands **cmd, t_token *token)
 	t_redir	*new;
 
 	new = malloc(sizeof(t_redir));
+	if (!new)
+		return ;
 	new->type = token->type;
 	new->file = ft_strdup(token->next->value);
+	if (!new->file)
+	{
+		free(new);
+		return ;
+	}
 	new->next = NULL;
 	(*cmd)->num_redirections++;
 	if (!(*cmd)->redirections)
@@ -90,10 +97,20 @@ char	**add_word(char **array, char *str)
 	if (!array)
 	{
 		new_array[0] = ft_strdup(str);
+		if (!new_array[0])
+		{
+			free(new_array);
+			return (NULL);
+		}
 		new_array[1] = NULL;
 		return (new_array);
 	}
 	new_array[size] = ft_strdup(str);
+	if (!new_array[size])
+	{
+		free_tab(new_array);
+		return (array);
+	}
 	new_array[size + 1] = NULL;
 	free_tab(array);
 	return (new_array);
@@ -118,6 +135,13 @@ char	**copy_existing_array(char **array, int *size)
 	while (array && array[i])
 	{
 		new_array[i] = ft_strdup(array[i]);
+		if (!new_array[i])
+		{
+			while (--i >= 0)
+				free(new_array[i]);
+			free(new_array);
+			return (NULL);
+		}
 		i++;
 	}
 	return (new_array);

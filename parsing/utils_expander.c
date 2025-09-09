@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_expander.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:40:53 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/09 15:48:25 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ char	**copy_env(char **envp)
 	while (envp[i])
 	{
 		new_env[i] = ft_strdup(envp[i]);
+		if (!new_env[i])
+		{
+			while (--i >= 0)
+				free(new_env[i]);
+			free(new_env);
+			return (NULL);
+		}
 		i++;
 	}
 	new_env[i] = NULL;

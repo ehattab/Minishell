@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executable.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:30:23 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 11:49:53 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ void	exec_single_cmd(t_commands *cmd, char **envp)
 	if (execve(path, cmd->args, envp) == -1)
 	{
 		perror("execve");
+		free(path);
 		exit(1);
 	}
+	free(path);
 }
 
 char	*get_path(char *str, char **env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:55:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 15:52:43 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	set_var_env(char *arg, char **envp)
 	{
 		free(envp[pos]);
 		envp[pos] = ft_strdup(arg);
+		if (!envp[pos])
+			envp[pos] = NULL;
 	}
 	else
 	{
@@ -81,6 +83,8 @@ void	set_var_env(char *arg, char **envp)
 		while (envp[j])
 			j++;
 		envp[j] = ft_strdup(arg);
+		if (!envp[j])
+			return ;
 		envp[j + 1] = NULL;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:43 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 15:57:52 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,18 @@ char	*strjoin_and_free(char *s1, char *s2)
 	char	*res;
 
 	if (!s1 || !s2)
+	{
+		if (s1)
+			free(s1);
+		if (s2)
+			free(s2);
 		return (NULL);
+	}
 	res = ft_strjoin(s1, s2);
 	free(s1);
 	free(s2);
+	if (!res)
+		return (NULL);
 	return (res);
 }
 

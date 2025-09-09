@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:29:04 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/09 15:40:49 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	end_quotes(t_lexer *l, int type)
 
 void	tokenize_quotes(t_token **t, t_lexer *l, int type)
 {
-	int	j;
+	int		j;
+	char	*temp;
 
 	j = end_quotes(l, type);
 	if (j == -1)
@@ -46,7 +47,9 @@ void	tokenize_quotes(t_token **t, t_lexer *l, int type)
 		l->error_flag = 1;
 		return ;
 	}
-	add_token(t, ft_substr(l->str, l->i + 1, j - l->i - 1), type);
+	temp = ft_substr(l->str, l->i + 1, j - l->i - 1);
+	add_token(t, temp, type);
+	free(temp);
 	l->i = j + 1;
 	return ;
 }
@@ -60,7 +63,7 @@ void	tokenize_pipe(t_token **t, t_lexer *l, int type)
 		return ;
 	}
 	l->i++;
-	add_token(t, ft_strdup("|"), type);
+	add_token(t, "|", type);
 }
 
 void	tokenize_word(t_token **t, t_lexer *l, int type)
@@ -85,6 +88,7 @@ void	tokenize_word(t_token **t, t_lexer *l, int type)
 			add_token(t, word, SIMPLE_QUOTES);
 		else
 			add_token(t, word, type);
+		free(word);
 	}
 	else
 		free(word);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 19:16:19 by ehattab           #+#    #+#             */
-/*   Updated: 2025/08/30 14:42:55 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ t_token	*lexer(char *str)
 			break ;
 		tokenize_next(&tokens, l);
 		if (l->error_flag)
+		{
+			free_token(&tokens);
+			free(l->str);
+			free(l);
 			return (NULL);
+		}
 	}
 	free(l->str);
 	free(l);
@@ -53,21 +58,21 @@ void	tokenize_next(t_token **t, t_lexer *l)
 
 void	tokenize_append(t_token **t, t_lexer *l, int type)
 {
-	add_token(t, ft_strdup(">>"), type);
+	add_token(t, ">>", type);
 	l->i += 2;
 }
 
 void	tokenize_heredoc(t_token **t, t_lexer *l, int type)
 {
-	add_token(t, ft_strdup("<<"), type);
+	add_token(t, "<<", type);
 	l->i += 2;
 }
 
 void	tokenize_redir(t_token **t, t_lexer *l, int type)
 {
 	if (l->str[l->i] == '>')
-		add_token(t, ft_strdup(">"), type);
+		add_token(t, ">", type);
 	else if (l->str[l->i] == '<')
-		add_token(t, ft_strdup("<"), type);
+		add_token(t, "<", type);
 	l->i++;
 }

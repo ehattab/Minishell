@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 15:19:47 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 15:56:02 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*process_segment(t_lexer *l, t_quote_info *info, int *part_count)
 
 char	*handle_segment_result(t_lexer *l, char *word, char *temp)
 {
+	char	*result;
+
 	if (!temp && l->error_flag)
 	{
 		free(word);
@@ -89,6 +91,11 @@ char	*handle_segment_result(t_lexer *l, char *word, char *temp)
 		free(word);
 		return (NULL);
 	}
-	word = strjoin_and_free(word, temp);
-	return (word);
+	result = strjoin_and_free(word, temp);
+	if (!result)
+	{
+		l->error_flag = 1;
+		return (NULL);
+	}
+	return (result);
 }
