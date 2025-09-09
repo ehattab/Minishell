@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:52:09 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 15:52:50 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 19:05:00 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,25 @@ void	print_var_with_quotes(char *env_var)
 		ft_putstr_fd(env_var, 1);
 		ft_putstr_fd("\n", 1);
 	}
+}
+
+void	update_existing_var(char **envp, int pos, char *arg)
+{
+	free(envp[pos]);
+	envp[pos] = ft_strdup(arg);
+	if (!envp[pos])
+		envp[pos] = NULL;
+}
+
+void	add_new_var(char **envp, char *arg)
+{
+	int	j;
+
+	j = 0;
+	while (envp[j])
+		j++;
+	envp[j] = ft_strdup(arg);
+	if (!envp[j])
+		return ;
+	envp[j + 1] = NULL;
 }

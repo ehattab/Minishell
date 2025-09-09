@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/09 15:22:02 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 19:17:07 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,12 @@ char					*handle_segment_result(t_lexer *l, char *word,
 int						check_double_operators(t_token *t);
 int						check_heredoc_syntax(t_token *t);
 char					*handle_char(char *val, int i, int *new_i);
+t_redir					*create_redirection(t_token *token);
+void					add_redirection_to_cmd(t_commands **cmd, t_redir *new);
+int						copy_array_content(char **array, char **new_array,
+							int count);
+int						process_word_addition(char **new_array, char *str,
+							int size, char **original_array);
 
 int						check_n_option(const char *str);
 int						builtin_echo(char **args);
@@ -222,5 +228,7 @@ void					exec_child(t_commands *cmd, int *fds, char **envp,
 int						builtin_exit(char **args);
 void					exec_child_single(t_commands *cmd, char **envp,
 							t_context *ctx);
+void					update_existing_var(char **envp, int pos, char *arg);
+void					add_new_var(char **envp, char *arg);
 
 #endif

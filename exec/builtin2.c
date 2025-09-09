@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:55:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 18:44:19 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2025/09/09 19:04:03 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	set_var_env(char *arg, char **envp)
 {
 	char	*name;
 	int		pos;
-	int		j;
 
 	name = get_var_name(arg);
 	if (!name)
@@ -71,22 +70,9 @@ void	set_var_env(char *arg, char **envp)
 	pos = find_var_env(name, envp);
 	free(name);
 	if (pos != -1)
-	{
-		free(envp[pos]);
-		envp[pos] = ft_strdup(arg);
-		if (!envp[pos])
-			envp[pos] = NULL;
-	}
+		update_existing_var(envp, pos, arg);
 	else
-	{
-		j = 0;
-		while (envp[j])
-			j++;
-		envp[j] = ft_strdup(arg);
-		if (!envp[j])
-			return ;
-		envp[j + 1] = NULL;
-	}
+		add_new_var(envp, arg);
 }
 
 int	builtin_export(char **args, char **envp)
