@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:55:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/28 15:38:15 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 15:52:43 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	set_var_env(char *arg, char **envp)
 	if (!name)
 		return ;
 	pos = find_var_env(name, envp);
-	free (name);
+	free(name);
 	if (pos != -1)
 	{
 		free(envp[pos]);
@@ -87,12 +87,15 @@ void	set_var_env(char *arg, char **envp)
 
 int	builtin_export(char **args, char **envp)
 {
-	int		i;
-	int		status;
+	int	i;
+	int	status;
 
 	status = 0;
 	if (!args[1])
+	{
+		print_exported_vars(envp);
 		return (0);
+	}
 	i = 1;
 	while (args[i])
 	{

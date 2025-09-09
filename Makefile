@@ -16,6 +16,7 @@ parsing/expander.c \
 parsing/utils_expander.c \
 exec/signaux.c\
 exec/builtin2.c\
+exec/bultin3.c\
 exec/redirection1.c\
 parsing/error1.c\
 parsing/expander1.c\

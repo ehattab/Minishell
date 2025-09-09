@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:55:21 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 11:38:42 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 15:30:19 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_free(char **str)
 		free(str[i]);
 		i++;
 	}
-	free(str);
 }
 
 void	exec_child_single(t_commands *cmd, char **envp, t_context *ctx)

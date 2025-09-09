@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/09 11:58:24 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/09 15:22:02 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # include <sys/wait.h>
 # include <time.h>
 # include <unistd.h>
-# include <signal.h>
 
 enum					e_token_type
 {
@@ -103,7 +102,6 @@ typedef struct s_fds
 	int					pipe_fd[2];
 }						t_fds;
 
-// parser
 void					free_all(char *str, t_token *t, t_commands *commands);
 t_token					*create_token(char *str, enum e_token_type type);
 void					add_token(t_token **head, char *str,
@@ -164,8 +162,10 @@ char					*process_segment(t_lexer *l, t_quote_info *info,
 							int *part_count);
 char					*handle_segment_result(t_lexer *l, char *word,
 							char *temp);
+int						check_double_operators(t_token *t);
+int						check_heredoc_syntax(t_token *t);
+char					*handle_char(char *val, int i, int *new_i);
 
-// exec
 int						check_n_option(const char *str);
 int						builtin_echo(char **args);
 int						builtin_cd(char **cmd);
@@ -192,18 +192,12 @@ void					init_signals(void);
 void					handle_sigint(int sig);
 void					process_input(char *str, t_context *ctx);
 void					minishell_loop(t_context *ctx);
-// void					wait_for_all(t_context *ctx);
-// void					handle_parent(int *prev_fd, int *pipe_fd,
-// 							t_commands *cmd);
 void					handle_while(int fd, char *delimeter);
-int						check_double_operators(t_token *t);
-int						check_heredoc_syntax(t_token *t);
-// char					*handle_single_quote(char *val, int i, int *new_i);
-char					*handle_char(char *val, int i, int *new_i);
 void					reset_signal_exec(void);
 int						wait_for_single(pid_t pid);
 void					ignore_parent_signals(void);
-void					parent_wait_and_handle_signal(pid_t pid, t_context *ctx);
+void					parent_wait_and_handle_signal(pid_t pid,
+							t_context *ctx);
 char					*search_command_in_paths(char *cmd, char **path_split);
 void					execute_command(char *path, char **args, char **envp,
 							char *cmd_name);
@@ -214,38 +208,18 @@ void					handle_child_process(t_commands *cmd, t_fds fds,
 void					update_file_descriptors(int *prev_fd, int *pipe_fd,
 							t_commands *cmd);
 void					wait_for_processes(pid_t last_pid, t_context *ctx);
-
-int						check_n_option(const char *str);
-int						builtin_echo(char **args);
+void					print_exported_vars(char **envp);
+void					sort_env_copy(char **env_copy);
+void					print_var_with_quotes(char *env_var);
 int						builtin_exec(t_commands *cmd, char **envp,
 							t_context *ctx);
-int						builtin_cd(char **cmd);
-int						builtin_pwd(void);
-void					parsing_redir(t_commands *cmd);
-void					handle_redir_in(char *value);
-void					handle_redir_out(char *value);
-int						count_cmd(t_commands *cmd);
 void					exec_cmd(t_commands *cmd, char **envp, t_context *ctx);
-char					*get_path(char *str, char **envp);
-char					*find_cmd(char *cmd, char **envp, t_commands *str);
-void					ft_free(char **str);
 void					exec_all_cmd(t_commands *cmd, char **envp,
 							t_context *ctx);
 void					exec_single_cmd(t_commands *cmd, char **envp);
 void					exec_child(t_commands *cmd, int *fds, char **envp,
 							t_context *ctx);
 int						builtin_exit(char **args);
-int						is_numeric_argument(char *str);
-int						has_redirection(t_commands *cmd);
-int						is_builtin(t_commands *cmd);
-void					append_redir(char *value);
-void					handle_heredoc(char *delimeter);
-void					remove_from_env(char *var, char **envp);
-int						builtin_unset(char **args, char **envp);
-int						is_valid_varname(char *str);
-char					*get_var_name(char *arg);
-void					set_var_env(char *arg, char **envp);
-int						builtin_export(char **args, char **envp);
 void					exec_child_single(t_commands *cmd, char **envp,
 							t_context *ctx);
 
