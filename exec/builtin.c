@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:29:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/08/25 13:27:48 by tony             ###   ########.fr       */
+/*   Updated: 2025/09/16 16:36:38 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	builtin_exec(t_commands *cmd, char **envp, t_context *ctx)
 	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
 		return (ctx->last_status = builtin_unset(cmd->args, envp), 1);
 	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-		return (ctx->last_status = builtin_export(cmd->args, envp), 1);
+		return (ctx->last_status = builtin_export(cmd->args, envp, ctx), 1);
 	return (0);
 }
 

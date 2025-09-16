@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:55:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 19:04:03 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/16 16:34:07 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	find_var_env(char *name, char **envp)
 	return (-1);
 }
 
-void	set_var_env(char *arg, char **envp)
+void	set_var_env(char *arg, char **envp, t_context *ctx)
 {
 	char	*name;
 	int		pos;
@@ -72,10 +72,10 @@ void	set_var_env(char *arg, char **envp)
 	if (pos != -1)
 		update_existing_var(envp, pos, arg);
 	else
-		add_new_var(envp, arg);
+		add_new_var(ctx, arg);
 }
 
-int	builtin_export(char **args, char **envp)
+int	builtin_export(char **args, char **envp, t_context *ctx)
 {
 	int	i;
 	int	status;
@@ -91,13 +91,13 @@ int	builtin_export(char **args, char **envp)
 	{
 		if (!is_valid_varname(args[i]))
 		{
-			ft_putstr_fd("export: `", 2);
+			ft_putstr_fd("export: ", 2);
 			ft_putstr_fd(args[i], 2);
-			ft_putendl_fd("`: not a valid identifier", 2);
+			ft_putendl_fd(": not a valid identifier", 2);
 			status = 1;
 		}
 		else
-			set_var_env(args[i], envp);
+			set_var_env(args[i], envp, ctx);
 		i++;
 	}
 	return (status);

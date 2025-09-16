@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:52:09 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/09 19:05:00 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/16 16:42:43 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,25 @@ void	update_existing_var(char **envp, int pos, char *arg)
 		envp[pos] = NULL;
 }
 
-void	add_new_var(char **envp, char *arg)
+void    add_new_var(t_context *ctx, char *arg)
 {
-	int	j;
+    int     j;
+    char    **new_env;
 
-	j = 0;
-	while (envp[j])
-		j++;
-	envp[j] = ft_strdup(arg);
-	if (!envp[j])
-		return ;
-	envp[j + 1] = NULL;
+    j = 0;
+    while (ctx->env[j])
+        j++;
+    new_env = malloc(sizeof(char *) * (j + 2));
+    if (!new_env)
+        return;
+    j = 0;
+    while (ctx->env[j])
+    {
+        new_env[j] = ctx->env[j];
+        j++;
+    }
+    new_env[j] = ft_strdup(arg);
+    new_env[j + 1] = NULL;
+    //free(ctx->env);
+    ctx->env = new_env;
 }
