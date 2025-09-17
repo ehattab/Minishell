@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/16 16:34:33 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/17 16:03:24 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,8 @@ int						builtin_unset(char **args, char **envp);
 int						is_valid_varname(char *str);
 char					*get_var_name(char *arg);
 void					set_var_env(char *arg, char **envp, t_context *ctx);
-int						builtin_export(char **args, char **envp, t_context *ctx);
+int						builtin_export(char **args, char **envp,
+							t_context *ctx);
 void					init_signals(void);
 void					handle_sigint(int sig);
 void					process_input(char *str, t_context *ctx);
@@ -229,6 +230,6 @@ int						builtin_exit(char **args);
 void					exec_child_single(t_commands *cmd, char **envp,
 							t_context *ctx);
 void					update_existing_var(char **envp, int pos, char *arg);
-void    				add_new_var(t_context *ctx, char *arg);
+void					add_new_var(t_context *ctx, char *arg);
 
 #endif

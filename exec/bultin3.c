@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bultin3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tony <tony@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:52:09 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/16 19:02:23 by tony             ###   ########.fr       */
+/*   Updated: 2025/09/17 16:42:08 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,25 @@ void	update_existing_var(char **envp, int pos, char *arg)
 		envp[pos] = NULL;
 }
 
-void    add_new_var(t_context *ctx, char *arg)
+void	add_new_var(t_context *ctx, char *arg)
 {
-    int     j;
-    char    **new_env;
+	int		j;
+	char	**new_env;
 
-    j = 0;
-    while (ctx->env[j])
-        j++;
-    new_env = malloc(sizeof(char *) * (j + 2));
-    if (!new_env)
-        return;
-    j = 0;
-    while (ctx->env[j])
-    {
-        new_env[j] = ctx->env[j];
-        j++;
-    }
-    new_env[j] = ft_strdup(arg);
-    new_env[j + 1] = NULL;
-    //free(ctx->env);
-    ctx->env = new_env;
+	j = 0;
+	while (ctx->env[j])
+		j++;
+	new_env = malloc(sizeof(char *) * (j + 2));
+	if (!new_env)
+		return ;
+	j = 0;
+	while (ctx->env[j])
+	{
+		new_env[j] = ctx->env[j];
+		j++;
+	}
+	new_env[j] = ft_strdup(arg);
+	new_env[j + 1] = NULL;
+	ctx->env = new_env;
+	ft_free(ctx->env);
 }
