@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:55:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/16 16:34:07 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/18 14:51:34 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	set_var_env(char *arg, char **envp, t_context *ctx)
 		add_new_var(ctx, arg);
 }
 
-int	builtin_export(char **args, char **envp, t_context *ctx)
+int builtin_export(char **args, char **envp, t_context *ctx)
 {
-	int	i;
-	int	status;
-
+	int i;
+	int status;
+	
 	status = 0;
 	if (!args[1])
 	{
@@ -95,8 +95,10 @@ int	builtin_export(char **args, char **envp, t_context *ctx)
 			ft_putstr_fd(args[i], 2);
 			ft_putendl_fd(": not a valid identifier", 2);
 			status = 1;
+			i++;
+			continue ;
 		}
-		else
+		else if (ft_strchr(args[i], '='))
 			set_var_env(args[i], envp, ctx);
 		i++;
 	}

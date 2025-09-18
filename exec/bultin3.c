@@ -94,6 +94,7 @@ void	add_new_var(t_context *ctx, char *arg)
 {
 	int		j;
 	char	**new_env;
+	char	**old_env;
 
 	j = 0;
 	while (ctx->env[j])
@@ -104,11 +105,14 @@ void	add_new_var(t_context *ctx, char *arg)
 	j = 0;
 	while (ctx->env[j])
 	{
-		new_env[j] = ctx->env[j];
+		new_env[j] = ft_strdup(ctx->env[j]);
 		j++;
 	}
 	new_env[j] = ft_strdup(arg);
 	new_env[j + 1] = NULL;
+	old_env = ctx->env;
 	ctx->env = new_env;
-	ft_free(ctx->env);
+	if (ctx->env_is_copy && old_env)
+		ft_free(old_env);
+	ctx->env_is_copy = true;
 }

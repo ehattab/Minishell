@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/17 16:03:02 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/18 15:10:54 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,47 @@ int	check_arguments(int ac)
 	return (0);
 }
 
-void	process_command(char *str, t_context *ctx)
+void process_command(char *str, t_context *ctx)
 {
-	t_token		*tokens;
-	t_commands	*cmds;
-	int			error_status;
+	t_token *tokens;
+	t_commands *cmds;
+	int error_status;
 
+	if (!str)
+		return ;
+	tokens = NULL;
+	cmds = NULL;
+	error_status = 0;
 	tokens = lexer(str);
+	if (!tokens)
+	{
+		free_all(str, NULL, NULL);
+		return ;
+	}
 	error_status = handle_error(tokens);
 	if (error_status == 0)
 	{
 		tokens = expander(tokens, ctx);
 		cmds = parser(tokens);
 		if (cmds != NULL)
-			exec_cmd(cmds, ctx->env, ctx);
+		exec_cmd(cmds, ctx->env, ctx);
 	}
 	else
-		ctx->last_status = error_status;
+	ctx->last_status = error_status;
 	free_all(str, tokens, cmds);
 }
 
-int	main(int ac, char **av, char **envp)
+int main(int ac, char **av, char **envp)
 {
-	t_context	ctx;
-	char		*str;
+	t_context ctx;
+	char *str;
+	(void)av;
 
 	if (check_arguments(ac))
 		exit(1);
-	(void)av;
 	ctx.last_status = 0;
 	ctx.env = copy_env(envp);
+	ctx.env_is_copy = true;
 	init_signals();
 	while (1)
 	{
@@ -65,6 +76,7 @@ int	main(int ac, char **av, char **envp)
 		process_command(str, &ctx);
 	}
 	rl_clear_history();
-	free_tab(ctx.env);
+	if (ctx.env_is_copy && ctx.env)
+		free_tab(ctx.env);
 	return (0);
 }

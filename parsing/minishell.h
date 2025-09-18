@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:34:30 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/17 16:03:24 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/18 14:39:26 by ehattab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_context
 {
 	char				**env;
 	int					last_status;
+	bool				env_is_copy;
 }						t_context;
 
 typedef struct s_fds
@@ -171,6 +172,8 @@ int						copy_array_content(char **array, char **new_array,
 							int count);
 int						process_word_addition(char **new_array, char *str,
 							int size, char **original_array);
+int 					minishell_loop_main(t_context *ctx);
+int 					execute_pipeline(t_token *tokens, t_context *ctx);
 
 int						check_n_option(const char *str);
 int						builtin_echo(char **args);
@@ -231,5 +234,7 @@ void					exec_child_single(t_commands *cmd, char **envp,
 							t_context *ctx);
 void					update_existing_var(char **envp, int pos, char *arg);
 void					add_new_var(t_context *ctx, char *arg);
+int						process_export_args(char **args, char **envp, t_context *ctx);
+int 					handle_export_arg(char *arg, char **envp, t_context *ctx);
 
 #endif

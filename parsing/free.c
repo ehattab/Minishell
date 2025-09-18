@@ -31,7 +31,8 @@ void	free_token(t_token **head)
 	while (tmp != NULL)
 	{
 		next = tmp->next;
-		free(tmp->value);
+		if (tmp->value)
+			free(tmp->value);
 		free(tmp);
 		tmp = next;
 	}
