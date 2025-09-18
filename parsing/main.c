@@ -39,9 +39,14 @@ void	process_command(char *str, t_context *ctx)
 
 void	process_tokens_and_execute(char *str, t_token *tokens, t_context *ctx)
 {
-	t_commands	*cmds;
+	t_commands	*cmds = NULL;
 	int			error_status;
 
+	if (!tokens)
+	{
+		free_all(str, NULL, NULL);
+		return ;
+	}
 	error_status = handle_error(tokens);
 	if (error_status == 0)
 	{

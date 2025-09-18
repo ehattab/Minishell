@@ -1,0 +1,10 @@
+total 284
+drwxr-xr-x 6 ehattab 2024_nice    106 Sep 18 15:38 .
+drwxr-xr-x 6 ehattab 2024_nice     75 Sep 16 17:39 ..
+-rw-r--r-- 1 ehattab 2024_nice      0 Sep 18 15:38 ehattab
+drwxr-xr-x 2 ehattab 2024_nice   4096 Sep 18 15:35 exec
+drwxr-xr-x 8 ehattab 2024_nice   4096 Sep 18 15:35 .git
+drwxr-xr-x 6 ehattab 2024_nice     99 Sep 18 15:35 libft
+-rw-r--r-- 1 ehattab 2024_nice   1021 Sep 18 15:35 Makefile
+-rwxr-xr-x 1 ehattab 2024_nice 271880 Sep 18 15:35 minishell
+drwxr-xr-x 2 ehattab 2024_nice   4096 Sep 18 15:35 parsing
