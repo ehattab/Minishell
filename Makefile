@@ -24,6 +24,7 @@ parsing/tokenize1.c\
 exec/utilexec.c\
 parsing/parser1.c\
 parsing/parser3.c\
+exec/builtin4.c\
 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell

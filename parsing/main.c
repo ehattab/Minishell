@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/18 15:10:54 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/18 15:30:07 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,42 +22,45 @@ int	check_arguments(int ac)
 	return (0);
 }
 
-void process_command(char *str, t_context *ctx)
+void	process_command(char *str, t_context *ctx)
 {
-	t_token *tokens;
-	t_commands *cmds;
-	int error_status;
+	t_token	*tokens;
 
 	if (!str)
 		return ;
-	tokens = NULL;
-	cmds = NULL;
-	error_status = 0;
 	tokens = lexer(str);
 	if (!tokens)
 	{
 		free_all(str, NULL, NULL);
 		return ;
 	}
+	process_tokens_and_execute(str, tokens, ctx);
+}
+
+void	process_tokens_and_execute(char *str, t_token *tokens, t_context *ctx)
+{
+	t_commands	*cmds;
+	int			error_status;
+
 	error_status = handle_error(tokens);
 	if (error_status == 0)
 	{
 		tokens = expander(tokens, ctx);
 		cmds = parser(tokens);
 		if (cmds != NULL)
-		exec_cmd(cmds, ctx->env, ctx);
+			exec_cmd(cmds, ctx->env, ctx);
 	}
 	else
-	ctx->last_status = error_status;
+		ctx->last_status = error_status;
 	free_all(str, tokens, cmds);
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	t_context ctx;
-	char *str;
-	(void)av;
+	t_context	ctx;
+	char		*str;
 
+	(void)av;
 	if (check_arguments(ac))
 		exit(1);
 	ctx.last_status = 0;

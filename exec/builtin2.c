@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehattab <ehattab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:55:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/09/18 14:51:34 by ehattab          ###   ########.fr       */
+/*   Updated: 2025/09/18 15:25:27 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ void	set_var_env(char *arg, char **envp, t_context *ctx)
 		add_new_var(ctx, arg);
 }
 
-int builtin_export(char **args, char **envp, t_context *ctx)
+int	builtin_export(char **args, char **envp, t_context *ctx)
 {
-	int i;
-	int status;
-	
+	int	i;
+	int	status;
+	int	local_status;
+
 	status = 0;
 	if (!args[1])
 	{
@@ -89,17 +90,9 @@ int builtin_export(char **args, char **envp, t_context *ctx)
 	i = 1;
 	while (args[i])
 	{
-		if (!is_valid_varname(args[i]))
-		{
-			ft_putstr_fd("export: ", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putendl_fd(": not a valid identifier", 2);
+		local_status = handle_export_arg(args[i], envp, ctx);
+		if (local_status == 1)
 			status = 1;
-			i++;
-			continue ;
-		}
-		else if (ft_strchr(args[i], '='))
-			set_var_env(args[i], envp, ctx);
 		i++;
 	}
 	return (status);
