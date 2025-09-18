@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:37:11 by ehattab           #+#    #+#             */
-/*   Updated: 2025/09/18 15:30:07 by toroman          ###   ########.fr       */
+/*   Updated: 2025/09/18 16:29:26 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ void	process_command(char *str, t_context *ctx)
 
 void	process_tokens_and_execute(char *str, t_token *tokens, t_context *ctx)
 {
-	t_commands	*cmds = NULL;
+	t_commands	*cmds;
 	int			error_status;
 
+	cmds = NULL;
 	if (!tokens)
 	{
 		free_all(str, NULL, NULL);
